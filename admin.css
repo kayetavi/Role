@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* HEADER */
+header {
+  background: #0f172a;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+header button {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* MAIN */
+main {
+  padding: 20px 30px;
+  min-height: calc(100vh - 120px);
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+input {
+  padding: 8px;
+  margin-right: 6px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+#psvList div {
+  background: white;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+}
+
+/* FOOTER */
+footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 12px;
+}
