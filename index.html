@@ -1,58 +1,50 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login Test</title>
+  <title>Login</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-<h3>Login Test</h3>
+<h2>Login</h2>
 
 <input id="email" placeholder="Email"><br><br>
 <input id="password" type="password" placeholder="Password"><br><br>
-
-<button id="loginBtn">Login</button>
-
-<p id="msg"></p>
+<button onclick="login()">Login</button>
 
 <script>
-/* 1️⃣ Supabase client — ONLY ONCE */
 const supabaseClient = supabase.createClient(
   "https://qkpbggwaxnjwqdmqbbpz.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrcGJnZ3dheG5qd3FkbXFiYnB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0ODA5MzksImV4cCI6MjA4MjA1NjkzOX0.qqHPESSXRgP0FECZBReJvKmJKigkzHoXbEU3s7XvJSA"
 );
 
-/* 2️⃣ Button click handler */
-document.getElementById("loginBtn").addEventListener("click", login);
 
-/* 3️⃣ Login function */
 async function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password
   });
 
   if (error) {
-    document.getElementById("msg").innerText = error.message;
+    alert(error.message);
     return;
   }
 
-  const { data: profile, error: roleError } = await supabaseClient
+  const { data: profile } = await supabase
     .from("profiles")
     .select("role")
     .eq("id", data.user.id)
     .single();
 
-  if (roleError) {
-    document.getElementById("msg").innerText = roleError.message;
-    return;
+  if (profile.role === "admin") {
+    window.location.href = "admin.html";
+  } else {
+    window.location.href = "user.html";
   }
-
-  document.getElementById("msg").innerText =
-    "LOGIN SUCCESS ✅ Role: " + profile.role;
 }
 </script>
 
