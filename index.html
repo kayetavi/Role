@@ -1,37 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Login Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-<input id="email" placeholder="email">
-<input id="password" type="password" placeholder="password">
-<button onclick="login()">Login</button>
+<h3>Login Test</h3>
+
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+
+<button id="loginBtn">Login</button>
+
+<p id="msg"></p>
 
 <script>
-const supabase = supabase.createClient(
-  "https://supabase.com/dashboard/project/qkpbggwaxnjwqdmqbbpz/settings/api-keys",
-  "YeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrcGJnZ3dheG5qd3FkbXFiYnB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0ODA5MzksImV4cCI6MjA4MjA1NjkzOX0.qqHPESSXRgP0FECZBReJvKmJKigkzHoXbEU3s7XvJSA"
+/* 1️⃣ Supabase client — ONLY ONCE */
+const supabaseClient = supabase.createClient(
+  "https://qkpbggwaxnjwqdmqbbpz.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrcGJnZ3dheG5qd3FkbXFiYnB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY0ODA5MzksImV4cCI6MjA4MjA1NjkzOX0.qqHPESSXRgP0FECZBReJvKmJKigkzHoXbEU3s7XvJSA"
 );
 
+/* 2️⃣ Button click handler */
+document.getElementById("loginBtn").addEventListener("click", login);
+
+/* 3️⃣ Login function */
 async function login() {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
   });
 
-  const { data: profile } = await supabase
+  if (error) {
+    document.getElementById("msg").innerText = error.message;
+    return;
+  }
+
+  const { data: profile, error: roleError } = await supabaseClient
     .from("profiles")
     .select("role")
     .eq("id", data.user.id)
     .single();
 
-  if (profile.role === "admin") {
-    window.location = "admin.html";
-  } else {
-    window.location = "dashboard.html";
+  if (roleError) {
+    document.getElementById("msg").innerText = roleError.message;
+    return;
   }
+
+  document.getElementById("msg").innerText =
+    "LOGIN SUCCESS ✅ Role: " + profile.role;
 }
 </script>
 
