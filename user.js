@@ -26,7 +26,16 @@ protectUser();
 async function loadPSV() {
   const { data, error } = await supabaseClient
     .from("psv_data")
-    .select("unit, tag_no, set_pressure, service")
+    .select(`
+      unit,
+      tag_no,
+      set_pressure,
+      cdsp,
+      bp,
+      orifice,
+      type,
+      service
+    `)
     .order("id", { ascending: false });
 
   if (error) {
@@ -36,32 +45,32 @@ async function loadPSV() {
 
   allPSVData = data || [];
 
-  // ✅ TOTAL PSV COUNT
+  /* ===== TOTAL PSV ===== */
   const psvCountEl = document.getElementById("psvCount");
   if (psvCountEl) {
     psvCountEl.innerText = allPSVData.length;
   }
 
-  // ✅ UNIQUE UNIT COUNT
+  /* ===== UNIQUE UNITS ===== */
   const units = new Set(allPSVData.map(p => p.unit));
   const unitCountEl = document.getElementById("unitCount");
   if (unitCountEl) {
     unitCountEl.innerText = units.size;
   }
 
-  // Default view → show all PSV
+  // Default load → all PSV
   showAllPSV();
 }
 
 /* ============================
-   SHOW FUNCTIONS (CARD CLICK)
+   CARD CLICK FUNCTIONS
 ============================ */
 function showAllPSV() {
   renderTable(allPSVData);
 }
 
 function showAllUnits() {
-  // one row per unit (unique)
+  // unique unit rows
   const uniqueUnitsData = Object.values(
     allPSVData.reduce((acc, cur) => {
       if (!acc[cur.unit]) {
@@ -86,7 +95,7 @@ function renderTable(data) {
   if (data.length === 0) {
     list.innerHTML = `
       <tr>
-        <td colspan="4" style="text-align:center;">No data found</td>
+        <td colspan="8" style="text-align:center;">No data found</td>
       </tr>
     `;
     return;
@@ -98,6 +107,10 @@ function renderTable(data) {
         <td>${psv.unit ?? "-"}</td>
         <td>${psv.tag_no ?? "-"}</td>
         <td>${psv.set_pressure ?? "-"}</td>
+        <td>${psv.cdsp ?? "-"}</td>
+        <td>${psv.bp ?? "-"}</td>
+        <td>${psv.orifice ?? "-"}</td>
+        <td>${psv.type ?? "-"}</td>
         <td>${psv.service ?? "-"}</td>
       </tr>
     `;
