@@ -42,7 +42,7 @@
     </div>
 
     <!-- VIEW ALL PSV -->
-    <div class="view-psv-card" onclick="scrollToPSVTable()">
+    <div class="view-psv-card" onclick="togglePSVSection()">
       <div class="list-icon">≡</div>
       <span>View All PSV</span>
     </div>
@@ -65,59 +65,62 @@
 
     <br><br>
     <button onclick="addPSV()">Save PSV</button>
-
   </div>
 
   <hr>
 
-  <!-- PSV LIST -->
-  <h2 id="psvSection">PSV List</h2>
+  <!-- 🔽 PSV LIST + CHART (HIDDEN BY DEFAULT) -->
+  <div id="psvSection" style="display:none;">
 
-  <!-- CONTROLS -->
-  <div class="psv-controls">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search PSV (Tag / Service)"
-      onkeyup="filterPSV()"
-    >
+    <h2>PSV List</h2>
 
-    <button onclick="sortByPressure()">Sort SP ⬇️</button>
+    <!-- CONTROLS -->
+    <div class="psv-controls">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search PSV (Tag / Service)"
+        onkeyup="filterPSV()"
+      >
 
-    <span class="total-count">
-      Total PSV: <b id="totalCount">0</b>
-    </span>
-  </div>
+      <button onclick="sortByPressure()">Sort SP ⬇️</button>
 
-  <!-- TABLE -->
-  <div class="table-wrapper">
-    <table id="psvTable">
-      <thead>
-        <tr>
-          <th>Unit</th>
-          <th>Tag No</th>
-          <th>SP</th>
-          <th>CDSP</th>
-          <th>BP</th>
-          <th>Orifice</th>
-          <th>Type</th>
-          <th>Service</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+      <span class="total-count">
+        Total PSV: <b id="totalCount">0</b>
+      </span>
+    </div>
 
-      <tbody id="psvList">
-        <!-- JS se rows yahin add hongi -->
-      </tbody>
-    </table>
-  </div>
+    <!-- TABLE -->
+    <div class="table-wrapper">
+      <table id="psvTable">
+        <thead>
+          <tr>
+            <th>Unit</th>
+            <th>Tag No</th>
+            <th>SP</th>
+            <th>CDSP</th>
+            <th>BP</th>
+            <th>Orifice</th>
+            <th>Type</th>
+            <th>Service</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-  <hr>
+        <tbody id="psvList">
+          <!-- JS rows -->
+        </tbody>
+      </table>
+    </div>
 
-  <!-- CHART -->
-  <h2>PSV Service Chart</h2>
-  <div class="chart-box">
-    <canvas id="chart"></canvas>
+    <hr>
+
+    <!-- CHART -->
+    <h2>PSV Service Chart</h2>
+    <div class="chart-box">
+      <canvas id="chart"></canvas>
+    </div>
+
   </div>
 
 </main>
@@ -129,7 +132,6 @@
 
 <!-- JS -->
 <script src="admin.js"></script>
-
 
 </body>
 </html>
