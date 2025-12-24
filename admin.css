@@ -73,44 +73,74 @@ h2 {
 ================================ */
 .top-actions {
   margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.add-psv-card {
+/* COMMON CARD STYLE */
+.add-psv-card,
+.view-psv-card {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 
-  background: linear-gradient(135deg, #2563eb, #1e40af);
-  color: white;
-
-  padding: 8px 14px;        /* 🔽 reduced */
-  border-radius: 8px;      /* 🔽 reduced */
+  padding: 8px 14px;
+  border-radius: 8px;
   cursor: pointer;
 
-  font-size: 13px;         /* 🔽 text smaller */
-  box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+  font-size: 13px;
+  font-weight: bold;
   user-select: none;
+
+  box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+}
+
+/* ADD PSV */
+.add-psv-card {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
 }
 
 .add-psv-card:hover {
   opacity: 0.9;
 }
 
-/* PLUS ICON SMALL */
-.plus-icon {
-  width: 26px;             /* 🔽 reduced */
+/* VIEW ALL PSV */
+.view-psv-card {
+  background: white;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.view-psv-card:hover {
+  background: #2563eb;
+  color: white;
+}
+
+/* ICON STYLE (SAME SIZE) */
+.plus-icon,
+.list-icon {
+  width: 26px;
   height: 26px;
   background: white;
   color: #1e40af;
   border-radius: 50%;
 
-  font-size: 18px;         /* 🔽 reduced */
+  font-size: 16px;
   font-weight: bold;
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+/* LIST ICON COLOR FIX */
+.view-psv-card .list-icon {
+  background: #2563eb;
+  color: white;
+}
+
 
 /* ===============================
    ADD PSV FORM
