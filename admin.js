@@ -15,6 +15,18 @@ let chartInstance;
 let unitChartInstance;
 let statusChartInstance;
 
+
+/* =====================
+   SETTINGS TOGGLE
+===================== */
+function toggleSettings() {
+  const menu = document.getElementById("settingsMenu");
+  if (!menu) return;
+
+  menu.style.display =
+    menu.style.display === "block" ? "none" : "block";
+}
+
 /* =====================
    ADMIN PROTECTION
 ===================== */
@@ -112,6 +124,64 @@ async function addPSV() {
   loadChart();
   loadDashboardSummary();
 }
+
+/* =====================
+   EXCEL UPLOAD (BULK PSV)
+===================== */
+async function uploadExcel() {
+  const fileInput = document.getElementById("excelUpload");
+  if (!fileInput || !fileInput.files.length) return;
+
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = async (e) => {
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data, { type: "array" });
+
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet);
+
+    if (!rows.length) {
+      alert("⚠️ Excel file empty hai");
+      return;
+    }
+
+    /* OPTIONAL: clean data */
+    const cleanRows = rows.map(r => ({
+      unit: r.unit || "",
+      tag_no: r.tag_no || "",
+      set_pressure: r.set_pressure || null,
+      cdsp: r.cdsp || null,
+      bp: r.bp || null,
+      orifice: r.orifice || "",
+      type: r.type || "",
+      service: r.service || ""
+    }));
+
+    const { error } = await supabaseClient
+      .from("psv_data")
+      .insert(cleanRows);
+
+    if (error) {
+      console.error(error);
+      alert("❌ Excel upload failed");
+      return;
+    }
+
+    alert(`✅ ${cleanRows.length} PSV uploaded successfully`);
+
+    fileInput.value = "";      // reset file
+    loadPSV();                 // refresh table
+    loadChart();               // refresh charts
+    loadDashboardSummary();    // refresh dashboard
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+
+
+
 
 /* =====================
    LOAD PSV
@@ -218,7 +288,11 @@ async function loadChart() {
 
   if (chartInstance) chartInstance.destroy();
 
-  chartInstance = new Chart(chart, {
+  const chartCanvas = document.getElementById("chart");
+if (!chartCanvas) return;
+
+chartInstance = new Chart(chartCanvas, {
+
   type: "pie",
   data: {
     labels: Object.keys(counts),
@@ -258,7 +332,11 @@ async function loadDashboardSummary() {
 
   if (unitChartInstance) unitChartInstance.destroy();
 
-unitChartInstance = new Chart(unitChart, {
+const unitCanvas = document.getElementById("unitChart");
+if (!unitCanvas) return;
+
+unitChartInstance = new Chart(unitCanvas, {
+
   type: "bar",
   data: {
     labels: Object.keys(unitCount),
@@ -297,7 +375,11 @@ unitChartInstance = new Chart(unitChart, {
 
   if (statusChartInstance) statusChartInstance.destroy();
 
-  statusChartInstance = new Chart(statusChart, {
+  const statusCanvas = document.getElementById("statusChart");
+if (!statusCanvas) return;
+
+statusChartInstance = new Chart(statusCanvas, {
+
   type: "pie",
   data: {
     labels: ["Active", "Due Soon", "Overdue"],
