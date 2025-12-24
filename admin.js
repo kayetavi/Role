@@ -226,3 +226,18 @@ async function loadChart() {
 ===================== */
 loadPSV();
 loadChart();
+
+/* =====================
+   SCROLL TO PSV TABLE
+===================== */
+function scrollToPSVTable() {
+  const section = document.getElementById("psvSection");
+
+  if (section) {
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+}
+
