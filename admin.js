@@ -58,9 +58,14 @@ async function addPSV() {
   const { error } = await supabaseClient
     .from("psv_data")
     .insert({
-      tag_no: tag,
-      set_pressure: pressure,
-      service: srv
+      unit: unit.value,
+      tag_no: tag_no.value,
+      set_pressure: set_pressure.value,
+      cdsp: cdsp.value,
+      bp: bp.value,
+      orifice: orifice.value,
+      type: type.value,
+      service: service.value
     });
 
   if (error) {
