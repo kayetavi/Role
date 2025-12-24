@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>User Dashboard</title>
+
+  <!-- CSS (same admin css use karo) -->
+  <link rel="stylesheet" href="admin.css">
+
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 
-<h2>PSV List (Read Only)</h2>
-<button onclick="logout()">Logout</button>
-<hr>
+<!-- ================= HEADER ================= -->
+<header class="main-header">
+  <div class="header-left">
+    <img src="images/nrl-logo.png" class="logo">
+  </div>
 
-<div id="psvList"></div>
+  <h1 class="header-title">NUMALIGARH REFINERY LIMITED</h1>
 
+  <div class="header-right">
+    <button onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<!-- ================= MAIN ================= -->
+<main>
+
+  <h2>PSV List (Read Only)</h2>
+  <p><b>User Access</b></p>
+  <hr>
+
+  <div id="psvList"></div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  © 2025 PSV Management System | User Panel
+</footer>
+
+<!-- ================= JS ================= -->
 <script>
 const supabaseClient = supabase.createClient(
   "https://qkpbggwaxnjwqdmqbbpz.supabase.co",
@@ -37,10 +68,10 @@ async function loadPSV() {
 
   data.forEach(psv => {
     list.innerHTML += `
-      <div>
-        <b>${psv.tag_no}</b> |
-        ${psv.set_pressure} |
-        ${psv.service}
+      <div class="card">
+        <b>${psv.tag_no}</b><br>
+        Set Pressure: ${psv.set_pressure}<br>
+        Service: ${psv.service}
       </div>
     `;
   });
