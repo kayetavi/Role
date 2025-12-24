@@ -1,10 +1,15 @@
+/* ===============================
+   GLOBAL
+================================ */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f4f6f8;
 }
 
-/* HEADER */
+/* ===============================
+   HEADER
+================================ */
 header {
   background: #0f172a;
   color: white;
@@ -28,7 +33,9 @@ header button {
   cursor: pointer;
 }
 
-/* MAIN */
+/* ===============================
+   MAIN
+================================ */
 main {
   padding: 20px 30px;
   min-height: calc(100vh - 120px);
@@ -38,6 +45,9 @@ h2 {
   margin-top: 30px;
 }
 
+/* ===============================
+   FORM INPUTS
+================================ */
 input {
   padding: 8px;
   margin-right: 6px;
@@ -48,43 +58,46 @@ button {
   cursor: pointer;
 }
 
-#psvList div {
-  background: white;
+/* ===============================
+   PSV CONTROLS (SEARCH / SORT)
+================================ */
+.psv-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.psv-controls input {
+  width: 260px;
   padding: 8px;
-  margin-bottom: 6px;
-  border-radius: 4px;
 }
 
-/* FOOTER */
-footer {
-  background: #0f172a;
-  color: #cbd5e1;
-  text-align: center;
-  padding: 12px;
+.psv-controls button {
+  padding: 7px 14px;
 }
 
-.chart-box {
-  width: 220px;      /* pie chart size */
-  height: 220px;
-  margin: auto;     /* center */
+.total-count {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-#chart {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-
-.table-container {
-  margin-top: 15px;
-  overflow-x: auto;
+/* ===============================
+   TABLE
+================================ */
+.table-wrapper {
+  margin-top: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  background: white;
 }
 
 #psvTable {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
-  background: #fff;
 }
 
 #psvTable th {
@@ -92,14 +105,44 @@ footer {
   color: white;
   padding: 10px;
   text-align: left;
+  position: sticky;   /* ⭐ STICKY HEADER */
+  top: 0;
+  z-index: 2;
 }
 
 #psvTable td {
   padding: 8px 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 #psvTable tr:hover {
   background-color: #f2f6ff;
 }
 
+#psvTable td:last-child {
+  text-align: center;
+}
+
+/* ===============================
+   CHART
+================================ */
+.chart-box {
+  width: 220px;
+  height: 220px;
+  margin: auto;
+}
+
+#chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 12px;
+}
