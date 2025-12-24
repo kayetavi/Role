@@ -152,19 +152,27 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 8px 20px;
   background: #0b3c5d;
   color: white;
-  position: relative;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+
 
 .header-left {
   width: 80px;
 }
 
 .logo {
-  height: 50px;
+  height: 35px;   /* yahan size kam kar diya */
+  width: auto;
 }
+
 
 .header-title {
   position: absolute;
