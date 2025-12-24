@@ -58,6 +58,27 @@ async function loadPSV() {
     unitCountEl.innerText = units.size;
   }
 
+   /* ===== TOTAL TSV ===== */
+const tsvData = allPSVData.filter(p => p.type === "TSV");
+const tsvCountEl = document.getElementById("tsvCount");
+if (tsvCountEl) {
+  tsvCountEl.innerText = tsvData.length;
+}
+
+/* ===== UNIQUE TYPES ===== */
+const types = new Set(allPSVData.map(p => p.type));
+const typeCountEl = document.getElementById("typeCount");
+if (typeCountEl) {
+  typeCountEl.innerText = types.size;
+}
+
+/* ===== UNIQUE SERVICES ===== */
+const services = new Set(allPSVData.map(p => p.service));
+const serviceCountEl = document.getElementById("serviceCount");
+if (serviceCountEl) {
+  serviceCountEl.innerText = services.size;
+}
+
   // Default load → all PSV
   showAllPSV();
 }
@@ -65,15 +86,17 @@ async function loadPSV() {
 /* ============================
    CARD CLICK FUNCTIONS
 ============================ */
+
+/* SHOW ALL PSV */
 function showAllPSV() {
   renderTable(allPSVData);
 }
 
+/* SHOW UNIQUE UNITS */
 function showAllUnits() {
-  // unique unit rows
   const uniqueUnitsData = Object.values(
     allPSVData.reduce((acc, cur) => {
-      if (!acc[cur.unit]) {
+      if (cur.unit && !acc[cur.unit]) {
         acc[cur.unit] = cur;
       }
       return acc;
@@ -81,6 +104,43 @@ function showAllUnits() {
   );
 
   renderTable(uniqueUnitsData);
+}
+
+/* SHOW ONLY TSV */
+function showAllTSV() {
+  const tsvData = allPSVData.filter(p => 
+    String(p.type).toUpperCase() === "TSV"
+  );
+
+  renderTable(tsvData);
+}
+
+/* SHOW UNIQUE TYPES */
+function showByType() {
+  const uniqueTypes = Object.values(
+    allPSVData.reduce((acc, cur) => {
+      if (cur.type && !acc[cur.type]) {
+        acc[cur.type] = cur;
+      }
+      return acc;
+    }, {})
+  );
+
+  renderTable(uniqueTypes);
+}
+
+/* SHOW UNIQUE SERVICES */
+function showByService() {
+  const uniqueServices = Object.values(
+    allPSVData.reduce((acc, cur) => {
+      if (cur.service && !acc[cur.service]) {
+        acc[cur.service] = cur;
+      }
+      return acc;
+    }, {})
+  );
+
+  renderTable(uniqueServices);
 }
 
 /* ============================
