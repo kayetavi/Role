@@ -32,12 +32,21 @@
 
   <p><b>Only ADMIN can see this</b></p>
 
-  <!-- 🔹 ADD PSV ICON CARD -->
+  <!-- 🔹 TOP ACTION BUTTONS -->
   <div class="top-actions">
+
+    <!-- ADD PSV -->
     <div class="add-psv-card" onclick="toggleAddPSV()">
       <div class="plus-icon">+</div>
       <span>Add New PSV</span>
     </div>
+
+    <!-- VIEW ALL PSV -->
+    <div class="view-psv-card" onclick="scrollToPSVTable()">
+      <div class="list-icon">≡</div>
+      <span>View All PSV</span>
+    </div>
+
   </div>
 
   <!-- 🔹 ADD PSV FORM (HIDDEN) -->
@@ -62,7 +71,7 @@
   <hr>
 
   <!-- PSV LIST -->
-  <h2>PSV List</h2>
+  <h2 id="psvSection">PSV List</h2>
 
   <!-- CONTROLS -->
   <div class="psv-controls">
@@ -105,7 +114,7 @@
 
   <hr>
 
-  <!-- CHART (SAME PIE CHART) -->
+  <!-- CHART -->
   <h2>PSV Service Chart</h2>
   <div class="chart-box">
     <canvas id="chart"></canvas>
@@ -120,6 +129,7 @@
 
 <!-- JS -->
 <script src="admin.js"></script>
+
 
 </body>
 </html>
