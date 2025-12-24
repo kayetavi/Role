@@ -114,12 +114,19 @@ async function loadChart() {
   if (chartInstance) chartInstance.destroy();
 
   chartInstance = new Chart(chart, {
-    type: "pie",
-    data: {
-      labels: Object.keys(counts),
-      datasets: [{ data: Object.values(counts) }]
-    }
-  });
+  type: "pie",
+  data: {
+    labels: Object.keys(counts),
+    datasets: [{
+      data: Object.values(counts)
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false   // ⭐ YAHI LINE IMPORTANT HAI
+  }
+});
+
 }
 
 /* INIT */
