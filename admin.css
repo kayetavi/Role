@@ -34,7 +34,6 @@ body {
 
 .header-left img {
   height: 24px;
-  width: auto;
 }
 
 .header-title {
@@ -69,78 +68,62 @@ h2 {
 }
 
 /* ===============================
-   ADD PSV ICON CARD (SMALL)
+   TOP ACTIONS
 ================================ */
 .top-actions {
   margin: 12px 0;
   display: flex;
-  align-items: center;
   gap: 10px;
 }
 
-/* COMMON CARD STYLE */
+/* ===============================
+   ACTION CARDS
+================================ */
 .add-psv-card,
 .view-psv-card {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
-
   font-size: 13px;
   font-weight: bold;
   user-select: none;
-
   box-shadow: 0 3px 8px rgba(0,0,0,0.18);
 }
 
-/* ADD PSV */
 .add-psv-card {
   background: linear-gradient(135deg, #2563eb, #1e40af);
   color: white;
 }
 
-.add-psv-card:hover {
-  opacity: 0.9;
-}
-
-/* VIEW ALL PSV */
 .view-psv-card {
   background: white;
   color: #2563eb;
   border: 1px solid #2563eb;
 }
 
-.view-psv-card:hover {
-  background: #2563eb;
-  color: white;
-}
-
-/* ICON STYLE (SAME SIZE) */
 .plus-icon,
 .list-icon {
   width: 26px;
   height: 26px;
-  background: white;
-  color: #1e40af;
   border-radius: 50%;
-
-  font-size: 16px;
-  font-weight: bold;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
 }
 
-/* LIST ICON COLOR FIX */
+.plus-icon {
+  background: white;
+  color: #1e40af;
+}
+
 .view-psv-card .list-icon {
   background: #2563eb;
   color: white;
 }
-
 
 /* ===============================
    ADD PSV FORM
@@ -169,11 +152,10 @@ h2 {
 }
 
 /* ===============================
-   FORM INPUTS (GLOBAL)
+   INPUTS
 ================================ */
 input {
   padding: 8px;
-  margin-right: 6px;
 }
 
 button {
@@ -193,11 +175,6 @@ button {
 
 .psv-controls input {
   width: 260px;
-  padding: 8px;
-}
-
-.psv-controls button {
-  padding: 7px 14px;
 }
 
 .total-count {
@@ -228,10 +205,8 @@ button {
   background: #2563eb;
   color: white;
   padding: 10px;
-  text-align: left;
   position: sticky;
   top: 0;
-  z-index: 2;
 }
 
 #psvTable td {
@@ -243,65 +218,9 @@ button {
   background-color: #f2f6ff;
 }
 
-#psvTable td:last-child {
-  text-align: center;
-}
-
-/* ===============================
-   CHART
-================================ */
-.chart-box {
-  width: 100%;
-  height: 260px;       /* Desktop ke liye */
-  max-width: 320px;
-  margin: 0 auto;
-
-  background: white;
-  padding: 12px;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-#chart {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* ===============================
-   FOOTER
-================================ */
-footer {
-  background: #0f172a;
-  color: #cbd5e1;
-  text-align: center;
-  padding: 12px;
-}
-
-
 /* ===============================
    DASHBOARD SUMMARY
 ================================ */
-.dashboard-summary .chart-box {
-  width: 100%;
-  height: 240px;          /* 👈 FIXED HEIGHT */
-  max-width: 360px;
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dashboard-summary canvas {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-
 .dashboard-summary {
   margin: 30px 0;
 }
@@ -311,7 +230,6 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
-
 
 .card {
   background: white;
@@ -325,34 +243,44 @@ footer {
   font-size: 16px;
 }
 
-/* Alerts */
-.alerts ul {
-  padding-left: 18px;
-}
+/* ===============================
+   CHART (CLEAN & FIXED)
+================================ */
 
-.alerts li {
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-/* Full width table */
-.full-width {
-  margin-top: 20px;
-}
-
-.summary-table {
+/* COMMON CHART CONTAINER */
+.chart-box {
   width: 100%;
-  border-collapse: collapse;
+  max-width: 360px;
+  margin: 0 auto;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.summary-table th,
-.summary-table td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
+/* BAR CHART */
+.unit-chart-box {
+  height: 220px;
+  position: relative;
 }
 
-/* Status badges */
+/* PIE CHART */
+.pie-chart-box {
+  height: 240px;
+}
+
+/* CANVAS SAFE RULE */
+.dashboard-summary canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* ===============================
+   STATUS BADGES
+================================ */
 .badge {
   padding: 4px 10px;
   border-radius: 6px;
@@ -368,14 +296,12 @@ footer {
   background: #f59e0b;
 }
 
-/* BAR CHART FIX */
-.unit-chart-box {
-  width: 100%;
-  height: 220px;      /* 👈 FIXED HEIGHT – IMPORTANT */
-  max-width: 100%;
-  margin: 0 auto;
-
-  position: relative; /* Chart.js needs this */
+/* ===============================
+   FOOTER
+================================ */
+footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 12px;
 }
-
-
