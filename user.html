@@ -30,13 +30,30 @@
 <!-- ================= MAIN ================= -->
 <main>
 
-  <h2>PSV List (Read Only)</h2>
-  <p><b>User Access</b></p>
+  <!-- ===== WELCOME PANEL ===== -->
+  <section class="welcome-panel">
+    <h2>Welcome to PSV User Dashboard</h2>
+
+    <div class="card-row">
+      <div class="mini-card" onclick="showAllUnits()">
+        <h3>Total Units</h3>
+        <p id="unitCount">0</p>
+      </div>
+
+      <div class="mini-card" onclick="showAllPSV()">
+        <h3>Total PSV</h3>
+        <p id="psvCount">0</p>
+      </div>
+    </div>
+  </section>
+
   <hr>
 
+  <!-- ===== PSV TABLE ===== -->
   <table class="psv-table">
     <thead>
       <tr>
+        <th>Unit</th>
         <th>Tag No</th>
         <th>Set Pressure</th>
         <th>Service</th>
