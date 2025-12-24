@@ -146,3 +146,38 @@ footer {
   text-align: center;
   padding: 12px;
 }
+
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #0b3c5d;
+  color: white;
+  position: relative;
+}
+
+.header-left {
+  width: 80px;
+}
+
+.logo {
+  height: 50px;
+}
+
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.header-right button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
