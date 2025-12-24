@@ -1,6 +1,7 @@
-  <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Admin Dashboard</title>
 
   <!-- CSS -->
@@ -10,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
- 
+
 <body>
 
 <!-- HEADER -->
@@ -21,40 +22,62 @@
 
 <!-- MAIN -->
 <main>
+
   <p><b>Only ADMIN can see this</b></p>
 
+  <!-- ADD PSV -->
   <h2>Add PSV</h2>
-  <input id="tag_no" placeholder="Tag No">
-  <input id="set_pressure" placeholder="Set Pressure">
-  <input id="service" placeholder="Service">
+  <input id="tag_no" type="text" placeholder="Tag No">
+  <input id="set_pressure" type="number" placeholder="Set Pressure">
+  <input id="service" type="text" placeholder="Service">
   <button onclick="addPSV()">Add PSV</button>
 
   <hr>
 
+  <!-- PSV LIST -->
   <h2>PSV List</h2>
 
-<div class="table-container">
-  <table id="psvTable">
-    <thead>
-      <tr>
-        <th>PSV No</th>
-        <th>Set Pressure</th>
-        <th>Service</th>
-      </tr>
-    </thead>
-    <tbody id="psvList">
-      <!-- JS se rows yahin add hongi -->
-    </tbody>
-  </table>
-</div>
+  <!-- CONTROLS -->
+  <div class="psv-controls">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search PSV (Tag / Service)"
+      onkeyup="filterPSV()"
+    >
+
+    <button onclick="sortByPressure()">Sort SP ⬇️</button>
+
+    <span class="total-count">
+      Total PSV: <b id="totalCount">0</b>
+    </span>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <table id="psvTable">
+      <thead>
+        <tr>
+          <th>PSV No</th>
+          <th>Set Pressure</th>
+          <th>Service</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="psvList">
+        <!-- JS se rows yahin add hongi -->
+      </tbody>
+    </table>
+  </div>
 
   <hr>
 
+  <!-- CHART -->
   <h2>PSV Service Chart</h2>
-
-<div class="chart-box">
-  <canvas id="chart"></canvas>
-</div>
+  <div class="chart-box">
+    <canvas id="chart"></canvas>
+  </div>
 
 </main>
 
