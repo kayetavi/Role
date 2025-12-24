@@ -258,19 +258,19 @@ async function loadDashboardSummary() {
 
   if (unitChartInstance) unitChartInstance.destroy();
 
-  unitChartInstance = new Chart(unitChart, {
+unitChartInstance = new Chart(unitChart, {
   type: "bar",
   data: {
     labels: Object.keys(unitCount),
     datasets: [{
       data: Object.values(unitCount),
-      backgroundColor: "#93c5fd",   // optional clean color
       borderRadius: 6
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
+    resizeDelay: 100,          // 👈 IMPORTANT
     plugins: {
       legend: { display: false }
     },
@@ -282,6 +282,7 @@ async function loadDashboardSummary() {
     }
   }
 });
+
 
 
 
