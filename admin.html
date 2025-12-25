@@ -93,22 +93,22 @@
   <!-- ===== QUICK SUMMARY CARDS ===== -->
 <div class="quick-summary">
 
-  <div class="qs-card total">
+  <div class="qs-card total" onclick="filterByStatus('ALL')">
     <h4>Total PSV</h4>
     <p id="qsTotal">0</p>
   </div>
 
-  <div class="qs-card active">
+  <div class="qs-card active" onclick="filterByStatus('OK')">
     <h4>Active PSV</h4>
     <p id="qsActive">0</p>
   </div>
 
-  <div class="qs-card due">
+  <div class="qs-card due" onclick="filterByStatus('Due')">
     <h4>Due (≤30 days)</h4>
     <p id="qsDue">0</p>
   </div>
 
-  <div class="qs-card overdue">
+  <div class="qs-card overdue" onclick="filterByStatus('Overdue')">
     <h4>Overdue</h4>
     <p id="qsOverdue">0</p>
   </div>
