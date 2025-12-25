@@ -409,5 +409,18 @@ footer {
   color: #0f172a;
 }
 
+.status.ok {
+  color: green;
+  font-weight: bold;
+}
 
+.status.due {
+  color: orange;
+  font-weight: bold;
+}
+
+.status.overdue {
+  color: red;
+  font-weight: bold;
+}
 
