@@ -178,6 +178,39 @@
 
 </main>
 
+
+  <!-- ================= EDIT PSV MODAL ================= -->
+<div id="editModal" class="modal" style="display:none;">
+  <div class="modal-content">
+
+    <h3>Edit PSV</h3>
+
+    <input type="hidden" id="edit_id">
+
+    <input id="edit_unit" placeholder="Unit">
+    <input id="edit_tag_no" placeholder="Tag No">
+    <input id="edit_set_pressure" type="number" placeholder="Set Pressure">
+    <input id="edit_cdsp" type="number" placeholder="CDSP">
+    <input id="edit_bp" type="number" placeholder="Back Pressure">
+    <input id="edit_orifice" placeholder="Orifice">
+    <input id="edit_type" placeholder="Type">
+    <input id="edit_service" placeholder="Service">
+
+    <hr>
+
+    <label>Last Inspection Date</label>
+    <input id="edit_last_inspection_date" type="date">
+
+    <label>Inspection Frequency (Months)</label>
+    <input id="edit_inspection_frequency" type="number">
+
+    <br><br>
+    <button onclick="saveEditPSV()">💾 Save</button>
+    <button onclick="closeEditModal()">Cancel</button>
+
+  </div>
+</div>
+
 <!-- ================= FOOTER ================= -->
 <footer>
   © 2025 PSV Management System | Admin Panel
