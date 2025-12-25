@@ -46,14 +46,11 @@ body {
   white-space: nowrap;
 }
 
-.header-right button {
-  background: #ef4444;
-  border: none;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-   margin-right: 40px;   /* 👈 YE LINE ADD KARO */
+.header-right {
+  display: flex;        /* ⚙️ + Logout same line */
+  align-items: center;  /* vertically center */
+  gap: 10px;            /* dono ke beech space */
+  margin-right: 40px;   /* pura group left aayega */
 }
 
 /* ===============================
