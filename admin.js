@@ -17,6 +17,10 @@ let statusChartInstance;
 
 let activeCardFilter = null;   // ALL / OK / Due / Overdue
 let cardViewOpen = false;     // toggle state
+
+let activeUnitFilter = null;
+let unitViewOpen = false;
+
 /* =====================
    SETTINGS TOGGLE
 ===================== */
@@ -489,7 +493,6 @@ const unitCanvas = document.getElementById("unitChart");
 if (!unitCanvas) return;
 
 unitChartInstance = new Chart(unitCanvas, {
-
   type: "bar",
   data: {
     labels: Object.keys(unitCount),
@@ -499,8 +502,8 @@ unitChartInstance = new Chart(unitCanvas, {
     }]
   },
   options: {
-    responsive: false,          // 🔥 THIS STOPS STRETCH
-    maintainAspectRatio: true,  // 🔥 IMPORTANT
+    responsive: false,
+    maintainAspectRatio: true,
     plugins: {
       legend: { display: false }
     },
@@ -509,6 +512,16 @@ unitChartInstance = new Chart(unitCanvas, {
         beginAtZero: true,
         ticks: { stepSize: 1 }
       }
+    },
+
+    // 🔥 BAR CLICK HANDLER
+    onClick: (evt, elements) => {
+      if (!elements.length) return;
+
+      const index = elements[0].index;
+      const unit = unitChartInstance.data.labels[index];
+
+      filterByUnit(unit);
     }
   }
 });
@@ -627,4 +640,35 @@ function filterByStatus(status) {
 
   // ❌ Card view → ACTION HIDE
   renderTable(filteredData, true);
+}
+
+
+   /* =====================
+   FILTER BY UNIT (BAR CHART CLICK)
+===================== */
+function filterByUnit(unit) {
+  const section = document.getElementById("psvSection");
+  if (!section) return;
+
+  // 🔁 Same unit pe dobara click → HIDE
+  if (unitViewOpen && activeUnitFilter === unit) {
+    section.style.display = "none";
+    unitViewOpen = false;
+    activeUnitFilter = null;
+    return;
+  }
+
+  // SHOW section
+  section.style.display = "block";
+  unitViewOpen = true;
+  activeUnitFilter = unit;
+
+  setTimeout(() => {
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 120);
+
+  const filtered = psvCache.filter(psv => psv.unit === unit);
+
+  // 🔥 Unit filter → ACTION DIKHANA (edit/delete allowed)
+  renderTable(filtered, false);
 }
