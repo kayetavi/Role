@@ -408,6 +408,28 @@ async function loadDashboardSummary() {
 
   if (!data) return;
 
+   /* ---- QUICK SUMMARY COUNTS ---- */
+  let totalPSV = data.length;
+  let activePSV = 0;
+  let duePSV = 0;
+  let overduePSV = 0;
+
+  data.forEach(psv => {
+    if (psv.inspection_status === "Overdue") {
+      overduePSV++;
+    } else if (psv.inspection_status === "Due") {
+      duePSV++;
+    } else if (psv.inspection_status === "OK") {
+      activePSV++;
+    }
+  });
+
+  // Update dashboard cards
+  document.getElementById("qsTotal").innerText = totalPSV;
+  document.getElementById("qsActive").innerText = activePSV;
+  document.getElementById("qsDue").innerText = duePSV;
+  document.getElementById("qsOverdue").innerText = overduePSV;
+
   /* ---- UNIT OVERVIEW ---- */
   const unitCount = {};
   data.forEach(psv => {
