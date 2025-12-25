@@ -32,16 +32,28 @@
     <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
 
     <div id="settingsMenu" class="settings-menu" style="display:none;">
-      <label class="upload-label">
-        📤 Upload PSV (Excel)
-        <input
-          type="file"
-          id="excelUpload"
-          accept=".xlsx,.xls"
-          onchange="uploadExcel()"
-          hidden
-        >
-      </label>
+
+  <div class="settings-item" onclick="toggleAddPSV()">
+    ➕ Add New PSV
+  </div>
+
+  <div class="settings-item" onclick="togglePSVSection()">
+    📋 View All PSV
+  </div>
+
+  <hr>
+
+  <label class="settings-item upload-label">
+    📤 Upload PSV (Excel)
+    <input
+      type="file"
+      id="excelUpload"
+      accept=".xlsx,.xls"
+      onchange="uploadExcel()"
+      hidden
+    >
+  </label>
+
     </div>
   </div>
     
@@ -54,20 +66,6 @@
 
   <p><b>Only ADMIN can see this</b></p>
 
-  <!-- ===== TOP ACTION BUTTONS ===== -->
-  <div class="top-actions">
-
-    <div class="add-psv-card" onclick="toggleAddPSV()">
-      <div class="plus-icon">+</div>
-      <span>Add New PSV</span>
-    </div>
-
-    <div class="view-psv-card" onclick="togglePSVSection()">
-      <div class="list-icon">≡</div>
-      <span>View All PSV</span>
-    </div>
-
-  </div>
 
   <!-- ===== ADD PSV FORM ===== -->
   <div id="addPsvForm" class="add-psv-form" style="display:none;">
