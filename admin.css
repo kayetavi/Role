@@ -397,16 +397,21 @@ footer {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  padding: 10px;
+  padding: 6px 8px;   /* 👈 COMPACT */
   z-index: 100;
+  font-size: 13px;   /* 👈 TEXT SMALL */
 
   color: #000;   /* ✅ TEXT BLACK */
 }
 
 .settings-menu div,
+.settings-menu label,
 .settings-menu span,
 .settings-menu button {
-  color: #000;   /* ✅ force black */
+  padding: 6px 8px;     /* compact spacing */
+  line-height: 1.3;     /* vertical tight */
+  font-size: 13px;     /* small text */
+  color: #111;         /* clear black */
 }
 
 .upload-label {
