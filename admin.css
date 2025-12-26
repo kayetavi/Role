@@ -331,7 +331,7 @@ button {
   padding-left: 18px;
   margin: 0;
   font-size: 13px;
-  max-height: 200px;
+  max-height: 300px;
   overflow-y: auto;   /* ✅ andar scroll */
 }
 
