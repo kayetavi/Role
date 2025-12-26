@@ -27,56 +27,46 @@
 
   <div class="header-right">
 
-    <!-- ⚙️ SETTINGS -->
-  <div class="settings-wrapper">
-    <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+  <!-- ⚙️ SETTINGS -->
+<div class="settings-wrapper">
+  <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
 
-    <div id="settingsMenu" class="settings-menu" style="display:none;">
+  <div id="settingsMenu" class="settings-menu" style="display:none;">
 
-  <div class="settings-item" onclick="openAddPSVModal()">
-    ➕ Add New PSV
-  </div>
-
-  <div class="settings-item" onclick="togglePSVSection()">
-    📋 View All PSV
-  </div>
-
-  <hr>
-
-  <label class="settings-item upload-label">
-    📤 Upload PSV (Excel)
-    <input
-      type="file"
-      id="excelUpload"
-      accept=".xlsx,.xls"
-      onchange="uploadExcel()"
-      hidden
-    >
-  </label>
-      <label class="settings-item upload-label">
-  📤 Upload PSV (Excel)
-  <input
-    type="file"
-    id="excelUpload"
-    accept=".xlsx,.xls"
-    onchange="uploadExcel()"
-    hidden
-  >
-</label>
-
-<hr>
-
-<a
-  href="assets/psv_template.xlsx"
-  download
-  class="settings-item download-link"
->
-  ⬇️ Download PSV Excel Template
-</a>
-
+    <div class="settings-item" onclick="openAddPSVModal()">
+      ➕ Add New PSV
     </div>
+
+    <div class="settings-item" onclick="togglePSVSection()">
+      📋 View All PSV
+    </div>
+
+    <hr>
+
+    <!-- Upload Excel -->
+    <label class="settings-item upload-label">
+      📤 Upload PSV (Excel)
+      <input
+        type="file"
+        id="excelUpload"
+        accept=".xlsx,.xls"
+        onchange="uploadExcel()"
+        hidden
+      >
+    </label>
+
+    <!-- Download Template -->
+    <a
+      href="assets/psv_template.xlsx"
+      download
+      class="settings-item download-link"
+    >
+      ⬇️ Download PSV Excel Template
+    </a>
+
   </div>
-    
+</div>
+
     <button onclick="logout()">Logout</button>
   </div>
 </header>
