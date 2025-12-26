@@ -20,6 +20,7 @@ let cardViewOpen = false;     // toggle state
 
 let activeUnitFilter = null;
 let unitViewOpen = false;
+let filteredCache = [];   // 🔥 active filtered data
 
 /* =====================
    DASHBOARD SHOW / HIDE
@@ -311,6 +312,7 @@ async function loadPSV() {
   }
 
   psvCache = data || [];
+   populateFilterDropdowns(psvCache);   // ✅ YAHI ADD KARNA HAI
   renderTable(psvCache);
 }
 
@@ -450,21 +452,17 @@ function closeEditModal() {
    SEARCH
 ===================== */
 function filterPSV() {
-  const keyword = searchInput.value.toLowerCase();
-
-  const filtered = psvCache.filter(psv =>
-    (psv.tag_no || "").toLowerCase().includes(keyword) ||
-    (psv.service || "").toLowerCase().includes(keyword)
-  );
-
-  renderTable(filtered);
+  applyFilters();   // 🔥 central filter call
 }
 
 /* =====================
    SORT BY PRESSURE
 ===================== */
 function sortByPressure() {
-  const sorted = [...psvCache].sort((a, b) => {
+
+  const base = filteredCache.length ? filteredCache : psvCache;
+
+  const sorted = [...base].sort((a, b) => {
     const aP = parseFloat(a.set_pressure) || 0;
     const bP = parseFloat(b.set_pressure) || 0;
     return sortDesc ? bP - aP : aP - bP;
@@ -676,12 +674,46 @@ data.forEach(psv => {
 });
 }
 
+function applyFilters() {
+
+  const unit = document.getElementById("filterUnit")?.value || "";
+  const service = document.getElementById("filterService")?.value || "";
+  const status = document.getElementById("filterStatus")?.value || "";
+  const minSP = document.getElementById("minPressure")?.value || "";
+  const maxSP = document.getElementById("maxPressure")?.value || "";
+  const search = document.getElementById("searchInput")?.value
+    .toLowerCase() || "";
+
+  filteredCache = psvCache.filter(psv => {
+
+    if (unit && psv.unit !== unit) return false;
+    if (service && psv.service !== service) return false;
+    if (status && psv.inspection_status !== status) return false;
+
+    if (minSP && Number(psv.set_pressure) < Number(minSP)) return false;
+    if (maxSP && Number(psv.set_pressure) > Number(maxSP)) return false;
+
+    if (
+      search &&
+      !(
+        (psv.tag_no || "").toLowerCase().includes(search) ||
+        (psv.service || "").toLowerCase().includes(search)
+      )
+    ) return false;
+
+    return true;
+  });
+
+  renderTable(filteredCache);
+}
+
 /* =====================
    INIT
 ===================== */
 loadPSV();
 loadChart();
 loadDashboardSummary();
+
 
 function filterByStatus(status) {
   const section = document.getElementById("psvSection");
@@ -707,12 +739,12 @@ function filterByStatus(status) {
     section.scrollIntoView({ behavior: "smooth" });
   }, 120);
 
-  const filteredData =
-    status === "ALL"
-      ? psvCache
-      : psvCache.filter(psv => psv.inspection_status === status);
+  filteredCache =
+  status === "ALL"
+    ? psvCache
+    : psvCache.filter(psv => psv.inspection_status === status);
 
-  renderTable(filteredData, true); // action HIDE
+renderTable(filteredCache, true); // action HIDE
 }
 
 
@@ -721,33 +753,64 @@ function filterByStatus(status) {
    FILTER BY UNIT (BAR CHART CLICK)
 ===================== */
 function filterByUnit(unit) {
+
   const section = document.getElementById("psvSection");
   if (!section) return;
 
-  // 🔁 Same unit dobara click → dashboard wapas
-  if (unitViewOpen && activeUnitFilter === unit) {
-    section.style.display = "none";
-    unitViewOpen = false;
-    activeUnitFilter = null;
-
-    showDashboard(); // ✅
-    return;
-  }
-
-  hideDashboard();               // 🔥 dashboard hide
+  // Dashboard hide + list show
+  hideDashboard();
   section.style.display = "block";
 
-  unitViewOpen = true;
-  activeUnitFilter = unit;
+  // 🔥 Unit dropdown me value set
+  const unitSelect = document.getElementById("filterUnit");
+  if (unitSelect) unitSelect.value = unit;
+
+  // 🔥 Central filter call
+  applyFilters();
 
   setTimeout(() => {
     section.scrollIntoView({ behavior: "smooth" });
   }, 120);
-
-  const filtered = psvCache.filter(psv => psv.unit === unit);
-  renderTable(filtered, true);
 }
 
+function resetFilters() {
+
+  ["filterUnit","filterService","filterStatus",
+   "minPressure","maxPressure","searchInput"]
+  .forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  filteredCache = [];
+  renderTable(psvCache);
+}
+
+function populateFilterDropdowns(data) {
+
+  const unitSel = document.getElementById("filterUnit");
+  const servSel = document.getElementById("filterService");
+  if (!unitSel || !servSel) return;
+
+  const units = new Set();
+  const services = new Set();
+
+  data.forEach(p => {
+    if (p.unit) units.add(p.unit);
+    if (p.service) services.add(p.service);
+  });
+
+  unitSel.innerHTML = `<option value="">All Units</option>`;
+  servSel.innerHTML = `<option value="">All Services</option>`;
+
+  [...units].sort().forEach(u =>
+    unitSel.innerHTML += `<option value="${u}">${u}</option>`
+  );
+
+  [...services].sort().forEach(s =>
+    servSel.innerHTML += `<option value="${s}">${s}</option>`
+  );
+}
 
 
 /* =====================
