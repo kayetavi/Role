@@ -162,16 +162,33 @@ async function uploadExcel() {
     }
 
     /* OPTIONAL: clean data */
-    const cleanRows = rows.map(r => ({
-      unit: r.unit || "",
-      tag_no: r.tag_no || "",
-      set_pressure: r.set_pressure || null,
-      cdsp: r.cdsp || null,
-      bp: r.bp || null,
-      orifice: r.orifice || "",
-      type: r.type || "",
-      service: r.service || ""
-    }));
+    const cleanRows = rows.map(r => {
+
+  let nextInspection = null;
+
+  if (r.last_inspection_date && r.inspection_frequency) {
+    const d = new Date(r.last_inspection_date);
+    d.setMonth(d.getMonth() + Number(r.inspection_frequency));
+    nextInspection = d.toISOString().split("T")[0];
+  }
+
+  return {
+    unit: r.unit || "",
+    tag_no: r.tag_no || "",
+    set_pressure: r.set_pressure || null,
+    cdsp: r.cdsp || null,
+    bp: r.bp || null,
+    orifice: r.orifice || "",
+    type: r.type || "",
+    service: r.service || "",
+
+    // 🆕 NEW FIELDS
+    last_inspection_date: r.last_inspection_date || null,
+    inspection_frequency: r.inspection_frequency || null,
+    next_inspection_date: nextInspection
+  };
+});
+
 
     const { error } = await supabaseClient
       .from("psv_data")
