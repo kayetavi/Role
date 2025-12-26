@@ -424,29 +424,26 @@ async function loadChart() {
   if (chartInstance) chartInstance.destroy();
 
   const chartCanvas = document.getElementById("chart");
-if (!chartCanvas) return;
+  if (!chartCanvas) return;
 
-chartInstance = new Chart(chartCanvas, {
-
-  type: "pie",
-  data: {
-    labels: Object.keys(counts),
-    datasets: [{
-      data: Object.values(counts)
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "bottom"
+  chartInstance = new Chart(chartCanvas, {
+    type: "pie",
+    data: {
+      labels: Object.keys(counts),
+      datasets: [{
+        data: Object.values(counts)
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom" }
       }
     }
-  }
-});
-
+  });
 }
+
 
 /* =====================
    DASHBOARD SUMMARY
@@ -458,29 +455,22 @@ async function loadDashboardSummary() {
 
   if (!data) return;
 
-   /* ---- QUICK SUMMARY COUNTS ---- */
+  /* ---- QUICK SUMMARY COUNTS ---- */
   let totalPSV = data.length;
-  let activePSV = 0;
-  let duePSV = 0;
-  let overduePSV = 0;
+  let activePSV = 0, duePSV = 0, overduePSV = 0;
 
   data.forEach(psv => {
-    if (psv.inspection_status === "Overdue") {
-      overduePSV++;
-    } else if (psv.inspection_status === "Due") {
-      duePSV++;
-    } else if (psv.inspection_status === "OK") {
-      activePSV++;
-    }
+    if (psv.inspection_status === "Overdue") overduePSV++;
+    else if (psv.inspection_status === "Due") duePSV++;
+    else if (psv.inspection_status === "OK") activePSV++;
   });
 
-  // Update dashboard cards
-  document.getElementById("qsTotal").innerText = totalPSV;
-  document.getElementById("qsActive").innerText = activePSV;
-  document.getElementById("qsDue").innerText = duePSV;
-  document.getElementById("qsOverdue").innerText = overduePSV;
+  qsTotal.innerText = totalPSV;
+  qsActive.innerText = activePSV;
+  qsDue.innerText = duePSV;
+  qsOverdue.innerText = overduePSV;
 
-  /* ---- UNIT OVERVIEW ---- */
+  /* ---- UNIT OVERVIEW (BAR CHART) ---- */
   const unitCount = {};
   data.forEach(psv => {
     if (!psv.unit) return;
@@ -489,84 +479,72 @@ async function loadDashboardSummary() {
 
   if (unitChartInstance) unitChartInstance.destroy();
 
-const unitCanvas = document.getElementById("unitChart");
-if (!unitCanvas) return;
+  const unitCanvas = document.getElementById("unitChart");
+  if (!unitCanvas) return;
 
-unitChartInstance = new Chart(unitCanvas, {
-  type: "bar",
-  data: {
-    labels: Object.keys(unitCount),
-    datasets: [{
-      data: Object.values(unitCount),
-      borderRadius: 6
-    }]
-  },
-  options: {
-    responsive: false,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: { display: false }
+  unitChartInstance = new Chart(unitCanvas, {
+    type: "bar",
+    data: {
+      labels: Object.keys(unitCount),
+      datasets: [{
+        data: Object.values(unitCount),
+        borderRadius: 6
+      }]
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: { stepSize: 1 }
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1 }
+        }
+      },
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        const index = elements[0].index;
+        const unit = unitChartInstance.data.labels[index];
+        filterByUnit(unit);
       }
-    },
-
-    // 🔥 BAR CLICK HANDLER
-    onClick: (evt, elements) => {
-      if (!elements.length) return;
-
-      const index = elements[0].index;
-      const unit = unitChartInstance.data.labels[index];
-
-      filterByUnit(unit);
     }
-  }
-});
+  });
 
-
-
-
-
-  /* ---- STATUS SUMMARY ---- */
+  /* ---- STATUS SUMMARY (PIE) ---- */
   let active = 0, dueSoon = 0, overdue = 0;
 
   data.forEach(psv => {
     if (psv.inspection_status === "Overdue") overdue++;
-else if (psv.inspection_status === "Due") dueSoon++;
-else if (psv.inspection_status === "OK") active++;
+    else if (psv.inspection_status === "Due") dueSoon++;
+    else if (psv.inspection_status === "OK") active++;
   });
 
   if (statusChartInstance) statusChartInstance.destroy();
 
   const statusCanvas = document.getElementById("statusChart");
-if (!statusCanvas) return;
+  if (!statusCanvas) return;
 
-statusChartInstance = new Chart(statusCanvas, {
-
-  type: "pie",
-  data: {
-    labels: ["Active", "Due Soon", "Overdue"],
-    datasets: [{
-      data: [active, dueSoon, overdue]
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        position: "bottom"
+  statusChartInstance = new Chart(statusCanvas, {
+    type: "pie",
+    data: {
+      labels: ["Active", "Due Soon", "Overdue"],
+      datasets: [{
+        data: [active, dueSoon, overdue]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom" }
       }
     }
-  }
-});
+  });
 
 
-  /* ---- ALERTS & DUE TABLE ---- */
-  /* ---- ALERTS & DUE TABLE ---- */
+    /* ---- ALERTS & DUE TABLE ---- */
 alertList.innerHTML = "";
 dueTable.innerHTML = "";
 
