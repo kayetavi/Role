@@ -81,13 +81,24 @@ function toggleAddPSV() {
   const form = document.getElementById("addPsvForm");
   if (!form) return;
 
-  hideDashboard();            // 🔥 SAME as cards
+  const isOpen = form.style.display === "block";
+
+  // 🔁 Dubara click → CLOSE + dashboard wapas
+  if (isOpen) {
+    form.style.display = "none";
+    showDashboard();              // ✅ overview back
+    return;
+  }
+
+  // 🔥 First click → OPEN
+  hideDashboard();
   form.style.display = "block";
 
   setTimeout(() => {
-    form.scrollIntoView({ behavior: "smooth" });
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 120);
 }
+
 
 /* =====================
    VIEW ALL PSV TOGGLE
@@ -96,15 +107,25 @@ function togglePSVSection() {
   const section = document.getElementById("psvSection");
   if (!section) return;
 
-  hideDashboard();                // 🔥 SAME as cards (overview hide)
+  const isOpen = section.style.display === "block";
 
+  // 🔁 Dubara click → CLOSE + dashboard wapas
+  if (isOpen) {
+    section.style.display = "none";
+    showDashboard();              // ✅ overview back
+    return;
+  }
+
+  // 🔥 First click → OPEN (cards jaisa)
+  hideDashboard();
   section.style.display = "block";
-  renderTable(psvCache, false);   // ✅ ACTION column visible
+  renderTable(psvCache, false);   // ACTION visible
 
   setTimeout(() => {
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 120);
 }
+
 
 
 /* =====================
