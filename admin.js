@@ -903,3 +903,12 @@ function exportToExcel() {
     `PSV_Export_${new Date().toISOString().split("T")[0]}.xlsx`
   );
 }
+
+// 🧹 advance filter for pop up window
+function openAdvancedFilter(){
+  document.getElementById("advancedFilterModal").style.display = "flex";
+}
+
+function closeAdvancedFilter(){
+  document.getElementById("advancedFilterModal").style.display = "none";
+}
