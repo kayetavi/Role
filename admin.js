@@ -22,6 +22,19 @@ let activeUnitFilter = null;
 let unitViewOpen = false;
 
 /* =====================
+   DASHBOARD SHOW / HIDE
+===================== */
+function hideDashboard() {
+  const dash = document.getElementById("dashboardSections");
+  if (dash) dash.style.display = "none";
+}
+
+function showDashboard() {
+  const dash = document.getElementById("dashboardSections");
+  if (dash) dash.style.display = "block";
+}
+
+/* =====================
    SETTINGS TOGGLE
 ===================== */
 function toggleSettings() {
@@ -83,14 +96,15 @@ function togglePSVSection() {
   section.style.display = isHidden ? "block" : "none";
 
   if (isHidden) {
-    // ✅ Normal view → ACTION dikhna chahiye
-    renderTable(psvCache, false);
+    showDashboard();               // 🔥 dashboard wapas dikhe
+    renderTable(psvCache, false);  // ✅ ACTION column visible
 
     setTimeout(() => {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 120);
   }
 }
+
 
 /* =====================
    ADD PSV
@@ -659,36 +673,34 @@ function filterByStatus(status) {
   const section = document.getElementById("psvSection");
   if (!section) return;
 
-  // 🔁 Same card pe dobara click → HIDE
+  // 🔁 Same card dobara click → dashboard wapas
   if (cardViewOpen && activeCardFilter === status) {
     section.style.display = "none";
     cardViewOpen = false;
     activeCardFilter = null;
+
+    showDashboard(); // ✅
     return;
   }
 
-  // SHOW section
+  hideDashboard();               // 🔥 dashboard hide
   section.style.display = "block";
+
   cardViewOpen = true;
   activeCardFilter = status;
 
   setTimeout(() => {
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    section.scrollIntoView({ behavior: "smooth" });
   }, 120);
 
-  let filteredData = [];
+  const filteredData =
+    status === "ALL"
+      ? psvCache
+      : psvCache.filter(psv => psv.inspection_status === status);
 
-  if (status === "ALL") {
-    filteredData = psvCache;
-  } else {
-    filteredData = psvCache.filter(
-      psv => psv.inspection_status === status
-    );
-  }
-
-  // ❌ Card view → ACTION HIDE
-  renderTable(filteredData, true);
+  renderTable(filteredData, true); // action HIDE
 }
+
 
 
    /* =====================
@@ -698,28 +710,30 @@ function filterByUnit(unit) {
   const section = document.getElementById("psvSection");
   if (!section) return;
 
-  // 🔁 Same unit pe dobara click → HIDE
+  // 🔁 Same unit dobara click → dashboard wapas
   if (unitViewOpen && activeUnitFilter === unit) {
     section.style.display = "none";
     unitViewOpen = false;
     activeUnitFilter = null;
+
+    showDashboard(); // ✅
     return;
   }
 
-  // SHOW section
+  hideDashboard();               // 🔥 dashboard hide
   section.style.display = "block";
+
   unitViewOpen = true;
   activeUnitFilter = unit;
 
   setTimeout(() => {
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    section.scrollIntoView({ behavior: "smooth" });
   }, 120);
 
   const filtered = psvCache.filter(psv => psv.unit === unit);
-
-  // 🔥 Unit filter → ACTION DIKHANA (edit/delete allowed)
   renderTable(filtered, true);
 }
+
 
 
 /* =====================
