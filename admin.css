@@ -619,11 +619,11 @@ button {
 
 .modal-box {
   background: #fff;
-  width: 520px;
+  width: 460px;
   max-height: 85vh;
   overflow-y: auto;
   border-radius: 12px;
-  padding: 18px;
+  padding: 16px 18px;
 }
 
 .modal-header {
@@ -638,6 +638,31 @@ button {
   background: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+#addPsvForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns */
+  gap: 10px 12px;                 /* row | column gap */
+}
+
+#addPsvForm input {
+  padding: 7px 8px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+#addPsvForm button {
+  grid-column: span 2;
+  margin-top: 8px;
+  padding: 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#addPsvForm input[type="date"] {
+  grid-column: span 2;
 }
 
 
