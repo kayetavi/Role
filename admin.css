@@ -312,32 +312,79 @@ button {
   font-size: 16px;
 }
 
-/* Alerts */
-.alerts ul {
-  padding-left: 18px;
+/* ===============================
+   ALERTS (FIXED HEIGHT + SCROLL)
+================================ */
+.card.alerts {
+  padding: 12px 14px;
+  max-height: 280px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;   /* ❌ bahar overflow band */
 }
 
-.alerts li {
+.card.alerts h3 {
   margin-bottom: 8px;
-  font-size: 14px;
 }
 
-/* Full width table */
+.card.alerts ul {
+  padding-left: 18px;
+  margin: 0;
+  font-size: 13px;
+  max-height: 200px;
+  overflow-y: auto;   /* ✅ andar scroll */
+}
+
+.card.alerts li {
+  margin-bottom: 6px;
+}
+
+
+/* ===============================
+   DUE & OVERDUE TABLE (SCROLL)
+================================ */
+
 .full-width {
   margin-top: 20px;
+  padding: 12px 14px;
+  max-height: 340px;
+  overflow: hidden;   /* ❌ bahar overflow band */
 }
 
 .summary-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 13px;
+}
+
+/* Sticky header */
+.summary-table thead th {
+  background: #f1f5f9;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Scroll only tbody */
+.summary-table tbody {
+  display: block;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.summary-table thead,
+.summary-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .summary-table th,
 .summary-table td {
-  padding: 10px;
+  padding: 6px 8px;
   border-bottom: 1px solid #ddd;
-  font-size: 14px;
 }
+
 
 /* Status badges */
 .badge {
