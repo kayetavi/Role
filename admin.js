@@ -142,6 +142,15 @@ const payload = {
 /* =====================
    EXCEL UPLOAD (BULK PSV)
 ===================== */
+
+// 🔧 Excel serial date → YYYY-MM-DD
+function excelDateToISO(serial) {
+  const utcDays = Math.floor(serial - 25569);
+  const utcValue = utcDays * 86400;
+  const date = new Date(utcValue * 1000);
+  return date.toISOString().split("T")[0];
+}
+
 async function uploadExcel() {
   const fileInput = document.getElementById("excelUpload");
   if (!fileInput || !fileInput.files.length) return;
@@ -150,73 +159,85 @@ async function uploadExcel() {
   const reader = new FileReader();
 
   reader.onload = async (e) => {
-    const data = new Uint8Array(e.target.result);
-    const workbook = XLSX.read(data, { type: "array" });
+    try {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
 
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json(sheet);
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(sheet);
 
-    if (!rows.length) {
-      alert("⚠️ Excel file empty hai");
-      return;
+      if (!rows.length) {
+        alert("⚠️ Excel file empty hai");
+        return;
+      }
+
+      const cleanRows = rows.map(r => {
+
+        let lastDate = null;
+        let nextInspection = null;
+
+        /* ---------- DATE HANDLING ---------- */
+        if (r.last_inspection_date) {
+
+          // Excel number (45426)
+          if (typeof r.last_inspection_date === "number") {
+            lastDate = excelDateToISO(r.last_inspection_date);
+          }
+          // DD-MM-YYYY
+          else if (r.last_inspection_date.toString().includes("-")) {
+            const parts = r.last_inspection_date.toString().split("-");
+            if (parts.length === 3 && parts[0].length === 2) {
+              lastDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+            } else {
+              lastDate = r.last_inspection_date;
+            }
+          }
+        }
+
+        /* ---------- NEXT INSPECTION ---------- */
+        if (lastDate && r.inspection_frequency) {
+          const d = new Date(lastDate);
+          d.setMonth(d.getMonth() + Number(r.inspection_frequency));
+          nextInspection = d.toISOString().split("T")[0];
+        }
+
+        return {
+          unit: r.unit || "",
+          tag_no: r.tag_no || "",
+          set_pressure: r.set_pressure || null,
+          cdsp: r.cdsp || null,
+          bp: isNaN(r.bp) ? null : r.bp,
+          orifice: r.orifice || "",
+          type: r.type || "",
+          service: r.service || "",
+
+          last_inspection_date: lastDate,
+          inspection_frequency: Number(r.inspection_frequency) || null,
+          next_inspection_date: nextInspection
+        };
+      });
+
+      const { error } = await supabaseClient
+        .from("psv_data")
+        .insert(cleanRows);
+
+      if (error) {
+        console.error(error);
+        alert("❌ " + error.message);
+        return;
+      }
+
+      alert(`✅ ${cleanRows.length} PSV uploaded successfully`);
+
+      fileInput.value = "";
+      loadPSV();
+      loadChart();
+      loadDashboardSummary();
+
+    } catch (err) {
+      console.error(err);
+      alert("❌ Excel processing failed");
     }
-
-    /* OPTIONAL: clean data */
-    const cleanRows = rows.map(r => {
-
-  let nextInspection = null;
-
-  // 🔒 SAFE DATE PARSE
-  if (r.last_inspection_date && r.inspection_frequency) {
-    const parts = r.last_inspection_date.toString().split("-");
-    
-    // DD-MM-YYYY → YYYY-MM-DD
-    let safeDate = r.last_inspection_date;
-    if (parts.length === 3 && parts[0].length === 2) {
-      safeDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-    }
-
-    const d = new Date(safeDate);
-    d.setMonth(d.getMonth() + Number(r.inspection_frequency));
-    nextInspection = d.toISOString().split("T")[0];
-
-    r.last_inspection_date = safeDate;
-  }
-
-  return {
-    unit: r.unit || "",
-    tag_no: r.tag_no || "",
-    set_pressure: r.set_pressure || null,
-    cdsp: r.cdsp || null,
-    bp: isNaN(r.bp) ? null : r.bp,
-    orifice: r.orifice || "",
-    type: r.type || "",
-    service: r.service || "",
-
-    last_inspection_date: r.last_inspection_date || null,
-    inspection_frequency: Number(r.inspection_frequency) || null,
-    next_inspection_date: nextInspection
-  };
-});
-
-
-    const { error } = await supabaseClient
-      .from("psv_data")
-      .insert(cleanRows);
-
-    if (error) {
-  console.error(error);
-  alert("❌ " + error.message);
-  return;
-}
-
-
-    alert(`✅ ${cleanRows.length} PSV uploaded successfully`);
-
-    fileInput.value = "";      // reset file
-    loadPSV();                 // refresh table
-    loadChart();               // refresh charts
-    loadDashboardSummary();    // refresh dashboard
   };
 
   reader.readAsArrayBuffer(file);
