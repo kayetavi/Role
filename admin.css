@@ -424,7 +424,7 @@ button {
   height: 220px;      /* 👈 FIXED HEIGHT – IMPORTANT */
   max-width: 100%;
   margin: 0 auto;
-
+  margin-top: 20px;   /* 👈 BAR CHART NICHE AAYEGA */
   position: relative; /* Chart.js needs this */
 }
 
