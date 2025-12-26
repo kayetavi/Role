@@ -358,12 +358,10 @@ button {
 .full-width {
   margin-top: 20px;
   padding: 12px 14px;
-
-  max-height: 360px;     /* 🔼 thoda bada */
-  display: flex;         /* 🔥 IMPORTANT */
-  flex-direction: column;
-  overflow: hidden;      /* ❌ bahar scroll band */
+  max-height: 340px;
+  overflow: hidden;
 }
+
 
 
 .summary-table {
@@ -383,10 +381,9 @@ button {
 /* Scroll only tbody */
 .summary-table tbody {
   display: block;
-  flex: 1;               /* 🔥 MAGIC LINE */
+  max-height: 250px;
   overflow-y: auto;
 }
-
 
 .summary-table thead,
 .summary-table tbody tr {
