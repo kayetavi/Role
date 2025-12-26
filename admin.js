@@ -547,15 +547,9 @@ async function loadDashboardSummary() {
         borderRadius: 6
       }]
     },
-    options: {
+   options: {
   responsive: true,
   maintainAspectRatio: false,
-
-  layout: {
-    padding: {
-      bottom: 20   // 👈 BAR CHART bottom gap
-    }
-  },
 
   plugins: {
     legend: { display: false }
@@ -564,12 +558,18 @@ async function loadDashboardSummary() {
   scales: {
     x: {
       ticks: {
-        padding: 10   // 👈 X-axis label niche jayega
+        padding: 2
+      },
+      grid: {
+        offset: true
       }
     },
     y: {
       beginAtZero: true,
-      ticks: { stepSize: 1 }
+      ticks: {
+        stepSize: 1,
+        padding: 2
+      }
     }
   },
 
@@ -580,8 +580,7 @@ async function loadDashboardSummary() {
     filterByUnit(unit);
   }
 }
-
-  });
+ });
 
   /* ---- STATUS SUMMARY (PIE) ---- */
   let active = 0, dueSoon = 0, overdue = 0;
