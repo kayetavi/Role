@@ -246,16 +246,16 @@ button {
 }
 
 /* ===============================
-   CHART
+   CHART (RESPONSIVE FIX)
 ================================ */
 .chart-box {
   width: 100%;
-  height: 260px;       /* Desktop ke liye */
-  max-width: 320px;
-  margin: 0 auto;
+  max-width: 280px;        /* 👈 PC pe chota */
+  aspect-ratio: 1 / 1;    /* 👈 perfect round pie */
 
+  margin: 0 auto;
   background: white;
-  padding: 12px;
+  padding: 10px;
   border-radius: 10px;
 
   display: flex;
@@ -263,30 +263,20 @@ button {
   justify-content: center;
 }
 
-
-#chart {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* ===============================
-   FOOTER
-================================ */
-footer {
-  background: #0f172a;
-  color: #cbd5e1;
-  text-align: center;
-  padding: 12px;
+canvas {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 
 /* ===============================
-   DASHBOARD SUMMARY
+   DASHBOARD SUMMARY (FIXED)
 ================================ */
 .dashboard-summary .chart-box {
   width: 100%;
-  height: 240px;          /* 👈 FIXED HEIGHT */
-  max-width: 360px;
+  max-width: 300px;       /* 👈 PC limit */
+  aspect-ratio: 1 / 1;   /* 👈 no fixed height */
+
   margin: 0 auto;
 
   display: flex;
@@ -294,12 +284,16 @@ footer {
   justify-content: center;
 }
 
+/* Canvas responsive */
 .dashboard-summary canvas {
   max-width: 100%;
   max-height: 100%;
 }
 
 
+/* ===============================
+   DASHBOARD LAYOUT
+================================ */
 .dashboard-summary {
   margin: 30px 0;
 }
@@ -590,4 +584,14 @@ footer {
   .quick-summary {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* ===============================
+   FOOTER
+================================ */
+footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 12px;
 }
