@@ -492,24 +492,39 @@ async function loadDashboardSummary() {
       }]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { stepSize: 1 }
-        }
-      },
-      onClick: (evt, elements) => {
-        if (!elements.length) return;
-        const index = elements[0].index;
-        const unit = unitChartInstance.data.labels[index];
-        filterByUnit(unit);
-      }
+  responsive: true,
+  maintainAspectRatio: false,
+
+  layout: {
+    padding: {
+      bottom: 20   // 👈 BAR CHART bottom gap
     }
+  },
+
+  plugins: {
+    legend: { display: false }
+  },
+
+  scales: {
+    x: {
+      ticks: {
+        padding: 10   // 👈 X-axis label niche jayega
+      }
+    },
+    y: {
+      beginAtZero: true,
+      ticks: { stepSize: 1 }
+    }
+  },
+
+  onClick: (evt, elements) => {
+    if (!elements.length) return;
+    const index = elements[0].index;
+    const unit = unitChartInstance.data.labels[index];
+    filterByUnit(unit);
+  }
+}
+
   });
 
   /* ---- STATUS SUMMARY (PIE) ---- */
