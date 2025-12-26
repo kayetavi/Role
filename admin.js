@@ -751,3 +751,25 @@ function filterByUnit(unit) {
   // 🔥 Unit filter → ACTION DIKHANA (edit/delete allowed)
   renderTable(filtered, true);
 }
+
+
+/* =====================
+   search BY alert list
+===================== */
+function filterAlerts() {
+  const keyword = document
+    .getElementById("alertSearch")
+    .value
+    .toLowerCase();
+
+  const items = document.querySelectorAll("#alertList li");
+
+  items.forEach(li => {
+    li.style.display = li.innerText
+      .toLowerCase()
+      .includes(keyword)
+      ? "list-item"
+      : "none";
+  });
+}
+
