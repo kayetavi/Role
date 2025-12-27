@@ -46,30 +46,30 @@
 
   <div id="settingsMenu" class="settings-menu" style="display:none;">
 
-  <!-- ➕ ADD PSV (SUB MENU) -->
-  <div class="settings-item has-submenu" onclick="toggleSubMenu(event)">
-    ➕ Add PSV
-    <span style="float:right;">▶</span>
+  <!-- ➕ ADD PSV -->
+<div class="settings-item" onclick="toggleAddPSV()">
+  ➕ Add PSV
+</div>
 
-    <div class="submenu">
+<!-- ADD PSV SUB MENU (ACCORDION) -->
+<div id="addPsvSubMenu" class="submenu-vertical" style="display:none;">
 
-      <div class="submenu-item" onclick="openAddPSVModal()">
-        ➕ Add New PSV
-      </div>
-
-      <label class="submenu-item upload-label">
-        📤 Upload PSV (Excel)
-        <input
-          type="file"
-          id="excelUpload"
-          accept=".xlsx,.xls"
-          onchange="uploadExcel()"
-          hidden
-        >
-      </label>
-
-    </div>
+  <div class="submenu-item" onclick="openAddPSVModal()">
+    ➕ Add New PSV
   </div>
+
+  <label class="submenu-item upload-label">
+    📤 Upload PSV (Excel)
+    <input
+      type="file"
+      id="excelUpload"
+      accept=".xlsx,.xls"
+      onchange="uploadExcel()"
+      hidden
+    >
+  </label>
+
+</div>
 
   <!-- VIEW ALL -->
   <div class="settings-item" onclick="togglePSVSection()">
