@@ -79,41 +79,39 @@ async function logout() {
 // DUE & OVERDUE COLUMN FILTER
 // ===============================
 function filterDueTable() {
-  const table = document.getElementById("dueTableMain");
+
   const rows = document.querySelectorAll("#dueTable tr");
-  const filters = table.querySelectorAll(".filter-row input, .filter-row select");
+  const filters = document.querySelectorAll(".filter-row input, .filter-row select");
 
   rows.forEach(row => {
-    let visible = true;
     const cells = row.querySelectorAll("td");
+    let show = true;
 
     filters.forEach(filter => {
       const col = Number(filter.dataset.col);
-      const filterVal = filter.value.trim().toLowerCase();
-      if (!filterVal) return;
+      const value = filter.value.trim().toLowerCase();
+      if (!value) return;
 
       const cell = cells[col];
       if (!cell) return;
 
-      // ⭐ MAIN FIX
-      let cellText = cell.textContent
-        .replace(/\s+/g, " ")
-        .trim()
-        .toLowerCase();
+      let cellText = cell.innerText.trim().toLowerCase();
 
-      // 📅 Date filter support
+      // 📅 Date support
       if (filter.type === "date") {
         cellText = cellText.split(" ")[0];
       }
 
-      if (!cellText.includes(filterVal)) {
-        visible = false;
+      // 🔥 STATUS FIX (badge / span issue)
+      if (!cellText.includes(value)) {
+        show = false;
       }
     });
 
-    row.style.display = visible ? "" : "none";
+    row.style.display = show ? "" : "none";
   });
 }
+
 
 
 /* =====================
