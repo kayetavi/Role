@@ -592,6 +592,7 @@ button {
 }
 
 .add-psv-item .arrow {
+  display: inline-block;        /* ⭐ MOST IMPORTANT LINE */
   transition: transform 0.3s ease;
   font-size: 12px;
 }
