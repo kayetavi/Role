@@ -62,12 +62,13 @@ body {
 main {
   padding: 20px 30px;
 
-  margin-top: 50px;      /* header height */
-  margin-bottom: 38px;   /* footer height */
+  margin-top: 44px;      /* header actual height */
+  margin-bottom: 26px;   /* footer actual height */
 
-  height: calc(100vh - 140px);  /* header + footer */
-  overflow-y: auto;             /* ✅ SCROLL YAHI */
+  height: calc(100vh - 70px); /* 👈 header + footer only */
+  overflow-y: auto;
 }
+
 
 
 h2 {
