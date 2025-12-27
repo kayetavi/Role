@@ -414,8 +414,10 @@ function renderTable(data, hideAction = false) {
           hideAction
             ? ""
             : `<td>
-                <button onclick="openEditModalById(${psv.id})">✏️</button>
-                <button onclick="deletePSV(${psv.id})">❌</button>
+                <button data-tooltip="Edit PSV"
+        onclick="openEditModalById(${psv.id})">✏️</button>
+                <button data-tooltip="Delete PSV"
+        onclick="deletePSV(${psv.id})">❌</button>
               </td>`
         }
       </tr>
