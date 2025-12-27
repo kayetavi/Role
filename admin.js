@@ -88,16 +88,16 @@ function filterDueTable() {
     const cells = row.querySelectorAll("td");
 
     filters.forEach(filter => {
-      const col = parseInt(filter.dataset.col);
-      const filterVal = filter.value.toLowerCase().trim();
+      const col = Number(filter.dataset.col);
+      const filterVal = filter.value.trim().toLowerCase();
       if (!filterVal) return;
 
       const cell = cells[col];
       if (!cell) return;
 
-      let cellText = cell.innerText.toLowerCase();
+      let cellText = cell.textContent.trim().toLowerCase();
 
-      // ✅ Date fix (YYYY-MM-DD)
+      // 📅 Date support
       if (filter.type === "date") {
         cellText = cellText.split(" ")[0];
       }
@@ -110,12 +110,6 @@ function filterDueTable() {
     row.style.display = visible ? "" : "none";
   });
 }
-
-
-
-
-
-
 
 /* =====================
    ADD PSV FORM TOGGLE
