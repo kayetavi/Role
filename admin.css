@@ -1,11 +1,14 @@
 /* ===============================
    GLOBAL
 ================================ */
-body {
+html, body {
+  height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f4f6f8;
+  overflow: hidden;   /* ✅ page scrollbar band */
 }
+
 
 /* ===============================
    HEADER (STICKY)
@@ -14,6 +17,7 @@ body {
   background: #0f172a;
   color: white;
   padding: 14px 20px;
+   height: 70px;   /* ✅ ADD THIS */
 
   display: flex;
   align-items: center;
@@ -57,14 +61,19 @@ body {
    MAIN
 ================================ */
 main {
+  position: fixed;     /* 🔴 MOST IMPORTANT */
+  top: 70px;           /* header height */
+  bottom: 50px;        /* footer height */
+  left: 0;
+  right: 0;
+
   padding: 20px 30px;
-  margin-top: 90px;
-  min-height: calc(100vh - 120px);
+  overflow-y: auto;    /* ✅ sirf yahin scroll */
+  overflow-x: hidden; /* ❌ right scrollbar band */
+
+  background: #f4f6f8;
 }
 
-h2 {
-  margin-top: 30px;
-}
 
 /* ===============================
    ADD PSV ICON CARD (SMALL)
@@ -793,8 +802,20 @@ button {
    FOOTER
 ================================ */
 footer {
+  position: fixed;     /* ✅ FIXED FOOTER */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;        /* ✅ fixed height */
+
   background: #0f172a;
   color: #cbd5e1;
   text-align: center;
-  padding: 12px;
+
+  display: flex;       /* vertical center text */
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
 }
+
