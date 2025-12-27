@@ -72,10 +72,18 @@
 
 </div>
 
-  <!-- VIEW ALL -->
-  <div class="settings-item" onclick="togglePSVSection()">
+  <!-- 🛠 BULK EDIT -->
+<div class="settings-item bulk-edit-item" onclick="toggleBulkEdit(event)">
+  🛠 Bulk Edit
+  <span class="arrow">▶</span>
+</div>
+
+<!-- BULK EDIT SUB MENU -->
+<div id="bulkEditSubMenu" class="submenu-vertical" style="display:none;">
+  <div class="submenu-item" onclick="togglePSVSection()">
     📋 View All PSV
   </div>
+</div>
 
   <hr>
 
