@@ -975,3 +975,55 @@ function openAdvancedFilter(){
 function closeAdvancedFilter(){
   document.getElementById("advancedFilterModal").style.display = "none";
 }
+
+/* =====================
+   RESET TO OVERVIEW (LOGO CLICK)
+===================== */
+function resetToOverview() {
+
+  /* 🔹 1. ALL INPUT & SELECT CLEAR */
+  document.querySelectorAll("input").forEach(input => {
+    if (
+      input.type === "text" ||
+      input.type === "number" ||
+      input.type === "date"
+    ) {
+      input.value = "";
+    }
+  });
+
+  document.querySelectorAll("select").forEach(select => {
+    select.value = "";
+  });
+
+  /* 🔹 2. FILTER CACHE RESET */
+  filteredCache = [];
+  activeCardFilter = null;
+  cardViewOpen = false;
+  activeUnitFilter = null;
+  unitViewOpen = false;
+
+  /* 🔹 3. ADVANCED FILTER MODAL CLOSE */
+  const adv = document.getElementById("advancedFilterModal");
+  if (adv) adv.style.display = "none";
+
+  /* 🔹 4. PSV LIST HIDE */
+  const section = document.getElementById("psvSection");
+  if (section) section.style.display = "none";
+
+  /* 🔹 5. DASHBOARD SHOW */
+  showDashboard();
+
+  /* 🔹 6. ALERT SEARCH RESET */
+  const alertSearch = document.getElementById("alertSearch");
+  if (alertSearch) {
+    alertSearch.value = "";
+    filterAlerts();
+  }
+
+  /* 🔹 7. RELOAD TABLE (FULL DATA) */
+  renderTable(psvCache);
+
+  /* 🔹 8. SCROLL TO TOP */
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
