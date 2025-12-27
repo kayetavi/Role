@@ -46,6 +46,20 @@ function toggleSettings() {
     menu.style.display === "block" ? "none" : "block";
 }
 
+
+function toggleSubMenu(e) {
+  e.stopPropagation();
+  const submenu = e.currentTarget.querySelector(".submenu");
+  if (!submenu) return;
+
+  document.querySelectorAll(".submenu").forEach(sm => {
+    if (sm !== submenu) sm.style.display = "none";
+  });
+
+  submenu.style.display =
+    submenu.style.display === "block" ? "none" : "block";
+}
+
 /* =====================
    ADMIN PROTECTION
 ===================== */
