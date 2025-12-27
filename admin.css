@@ -516,6 +516,7 @@ button {
   gap: 6px;
 
   white-space: nowrap;       /* 👈 no extra width */
+   cursor: pointer;
 }
 
 /* HOVER EFFECT */
