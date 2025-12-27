@@ -16,7 +16,7 @@ body {
 .main-header {
   background: #0f172a;
   color: white;
-  padding: 14px 20px;
+  padding: 6px 16px;
 
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@ body {
 }
 
 .header-left img {
-  height: 35px;
+  height: 26px;
   width: auto;
 }
 
@@ -44,7 +44,7 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
 }
@@ -62,7 +62,7 @@ body {
 main {
   padding: 20px 30px;
 
-  margin-top: 90px;      /* header height */
+  margin-top: 60px;      /* header height */
   margin-bottom: 50px;   /* footer height */
 
   height: calc(100vh - 140px);  /* header + footer */
@@ -483,8 +483,8 @@ button {
 }
 
 .settings-btn {
-  font-size: 22px;
-  padding: 12px 16px;
+  font-size: 18px;
+  padding: 6px 10px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
