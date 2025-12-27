@@ -42,19 +42,22 @@ function toggleSettings() {
   const menu = document.getElementById("settingsMenu");
   if (!menu) return;
 
-  menu.style.display =
-    menu.style.display === "block" ? "none" : "block";
+  const isOpen = menu.style.display === "block";
+  menu.style.display = isOpen ? "none" : "block";
+
+  // 🔥 settings close hone par Add PSV bhi close
+  if (isOpen) {
+    const sub = document.getElementById("addPsvSubMenu");
+    if (sub) sub.style.display = "none";
+  }
 }
 
-
-function toggleSubMenu(e) {
-  e.stopPropagation();
-  const submenu = e.currentTarget.querySelector(".submenu");
+/* =====================
+   ADD PSV ACCORDION TOGGLE
+===================== */
+function toggleAddPSV() {
+  const submenu = document.getElementById("addPsvSubMenu");
   if (!submenu) return;
-
-  document.querySelectorAll(".submenu").forEach(sm => {
-    if (sm !== submenu) sm.style.display = "none";
-  });
 
   submenu.style.display =
     submenu.style.display === "block" ? "none" : "block";
