@@ -602,6 +602,27 @@ button {
   transform: rotate(90deg);
 }
 
+/* ===============================
+   BULK EDIT ARROW ROTATE ✅
+================================ */
+.bulk-edit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bulk-edit-item .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+
+.bulk-edit-item.open .arrow {
+  transform: rotate(90deg);
+}
+
+
+
 /* HOVER EFFECT */
 .settings-menu div:hover,
 .settings-menu label:hover {
