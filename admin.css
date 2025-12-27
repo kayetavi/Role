@@ -621,6 +621,24 @@ button {
   transform: rotate(90deg);
 }
 
+/* ===============================
+   DATA LOADER ARROW ROTATE ✅
+================================ */
+.data-loader-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.data-loader-item .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+
+.data-loader-item.open .arrow {
+  transform: rotate(90deg);
+}
 
 
 /* HOVER EFFECT */
