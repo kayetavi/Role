@@ -59,10 +59,14 @@ function toggleSettings() {
     const bulkBtn = document.querySelector(".bulk-edit-item");
     if (bulkSub) bulkSub.style.display = "none";
     if (bulkBtn) bulkBtn.classList.remove("open");
+ 
+     // 🔽👇 YAHI PE YE ADD KARO (LAST ME)
+    const dataSub = document.getElementById("dataLoaderSubMenu");
+    const dataBtn = document.querySelector(".data-loader-item");
+    if (dataSub) dataSub.style.display = "none";
+    if (dataBtn) dataBtn.classList.remove("open");
   }
 }
-
-
 /* =====================
    ADD PSV ACCORDION TOGGLE
 ===================== */
@@ -100,6 +104,34 @@ function toggleBulkEdit(e) {
   const addBtn = document.querySelector(".add-psv-item");
   if (addSub) addSub.style.display = "none";
   if (addBtn) addBtn.classList.remove("open");
+
+  submenu.style.display = isOpen ? "none" : "block";
+  btn.classList.toggle("open", !isOpen);
+}
+
+/* =====================
+   DATA LOADER ACCORDION TOGGLE
+===================== */
+function toggleDataLoader(e) {
+  e.stopPropagation();
+
+  const submenu = document.getElementById("dataLoaderSubMenu");
+  const btn = document.querySelector(".data-loader-item");
+  if (!submenu || !btn) return;
+
+  const isOpen = submenu.style.display === "block";
+
+  // 🔁 Add PSV close
+  const addSub = document.getElementById("addPsvSubMenu");
+  const addBtn = document.querySelector(".add-psv-item");
+  if (addSub) addSub.style.display = "none";
+  if (addBtn) addBtn.classList.remove("open");
+
+  // 🔁 Bulk Edit close
+  const bulkSub = document.getElementById("bulkEditSubMenu");
+  const bulkBtn = document.querySelector(".bulk-edit-item");
+  if (bulkSub) bulkSub.style.display = "none";
+  if (bulkBtn) bulkBtn.classList.remove("open");
 
   submenu.style.display = isOpen ? "none" : "block";
   btn.classList.toggle("open", !isOpen);
