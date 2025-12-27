@@ -859,32 +859,39 @@ footer {
   cursor: pointer;
 }
 
+/* Tooltip box (BOTTOM) */
 [data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 120%;
+
+  top: 120%;                /* 👈 element ke niche */
   left: 50%;
   transform: translateX(-50%);
+
   background: #111827;
   color: #fff;
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 11px;
   white-space: nowrap;
+
   opacity: 0;
   pointer-events: none;
   transition: 0.15s ease;
   z-index: 9999;
 }
 
+/* Tooltip arrow (UP direction) */
 [data-tooltip]::before {
   content: "";
   position: absolute;
-  bottom: 110%;
+
+  top: 110%;                /* 👈 tooltip ke upar */
   left: 50%;
   transform: translateX(-50%);
+
   border: 6px solid transparent;
-  border-top-color: #111827;
+  border-bottom-color: #111827; /* 👈 arrow upar */
   opacity: 0;
   transition: 0.15s ease;
 }
@@ -893,5 +900,6 @@ footer {
 [data-tooltip]:hover::before {
   opacity: 1;
 }
+
 
 
