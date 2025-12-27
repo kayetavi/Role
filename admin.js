@@ -122,20 +122,17 @@ function filterDueTable() {
 // TOGGLE DUE & OVERDUE FILTERS
 // ===============================
 function toggleDueFilters() {
-  const inputs = document.querySelectorAll(
-    "#dueFilterRow .due-filter-input"
-  );
+  const row = document.getElementById("dueFilterRow");
 
-  if (!inputs.length) {
-    console.error("❌ Due filter inputs not found");
+  if (!row) {
+    console.error("❌ dueFilterRow not found");
     return;
   }
 
-  inputs.forEach(input => {
-    input.style.display =
-      input.style.display === "none" ? "block" : "none";
-  });
+  row.style.display =
+    row.style.display === "none" ? "table-row" : "none";
 }
+
 
 
 /* =====================
