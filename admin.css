@@ -59,6 +59,16 @@ body {
   margin-right: 20px;   /* pura group left aayega */
 }
 
+.logo {
+  transition: 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+
 /* ===============================
    MAIN
 ================================ */
