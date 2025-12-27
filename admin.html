@@ -46,36 +46,46 @@
 
   <div id="settingsMenu" class="settings-menu" style="display:none;">
 
-    <div class="settings-item" onclick="openAddPSVModal()">
-      ➕ Add New PSV
+  <!-- ➕ ADD PSV (SUB MENU) -->
+  <div class="settings-item has-submenu" onclick="toggleSubMenu(event)">
+    ➕ Add PSV
+    <span style="float:right;">▶</span>
+
+    <div class="submenu">
+
+      <div class="submenu-item" onclick="openAddPSVModal()">
+        ➕ Add New PSV
+      </div>
+
+      <label class="submenu-item upload-label">
+        📤 Upload PSV (Excel)
+        <input
+          type="file"
+          id="excelUpload"
+          accept=".xlsx,.xls"
+          onchange="uploadExcel()"
+          hidden
+        >
+      </label>
+
     </div>
+  </div>
 
-    <div class="settings-item" onclick="togglePSVSection()">
-      📋 View All PSV
-    </div>
+  <!-- VIEW ALL -->
+  <div class="settings-item" onclick="togglePSVSection()">
+    📋 View All PSV
+  </div>
 
-    <hr>
+  <hr>
 
-    <!-- Upload Excel -->
-    <label class="settings-item upload-label">
-      📤 Upload PSV (Excel)
-      <input
-        type="file"
-        id="excelUpload"
-        accept=".xlsx,.xls"
-        onchange="uploadExcel()"
-        hidden
-      >
-    </label>
-
-    <!-- Download Template -->
-    <a
-      href="assets/psv_template.xlsx"
-      download
-      class="settings-item download-link"
-    >
-      ⬇️ Download PSV Excel Template
-    </a>
+  <!-- DOWNLOAD TEMPLATE -->
+  <a
+    href="assets/psv_template.xlsx"
+    download
+    class="settings-item download-link"
+  >
+    ⬇️ Download PSV Excel Template
+  </a>
 
   </div>
 </div>
