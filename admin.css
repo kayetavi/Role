@@ -402,13 +402,6 @@ button {
   text-align: left;   /* 👈 alignment stable */
 }
 
-.summary-table thead {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-
 /* ===============================
    DUE & OVERDUE COLUMN FILTER
 ================================ */
@@ -440,31 +433,6 @@ button {
   display: table;
   width: 100%;
   table-layout: fixed;
-}
-
-
-/* Due header with right-side icon */
-.due-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Binocular button */
-.filter-toggle-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 4px 6px;
-}
-
-.filter-toggle-btn:hover {
-  color: #2563eb;
-}
-
-#dueFilterRow {
-  display: none;
 }
 
 
