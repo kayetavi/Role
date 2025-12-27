@@ -118,13 +118,21 @@ function filterDueTable() {
   });
 }
 
+// ===============================
+// TOGGLE DUE & OVERDUE FILTER ROW
+// ===============================
 function toggleDueFilters() {
-  document
-    .querySelectorAll("#dueFilterRow .due-filter-input")
-    .forEach(el => {
-      el.style.display =
-        el.style.display === "none" ? "block" : "none";
-    });
+  const inputs = document.querySelectorAll(
+    "#dueFilterRow .due-filter-input"
+  );
+
+  inputs.forEach(el => {
+    if (el.style.display === "none") {
+      el.style.display = "block";
+    } else {
+      el.style.display = "none";
+    }
+  });
 }
 
 /* =====================
