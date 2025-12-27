@@ -142,13 +142,32 @@
 
   </div>
 
-  <!-- DUE & OVERDUE TABLE -->
-  <div class="card full-width">
+ <!-- DUE & OVERDUE TABLE -->
+<div class="card full-width">
+
+  <!-- Header row -->
+  <div class="table-header">
     <h3>Due & Overdue PSV</h3>
 
-    <table class="summary-table">
-      <thead>
-       <tr>
+    <!-- search toggle icon -->
+    <button class="search-toggle" onclick="toggleDueSearch()" title="Search">
+      🔍
+    </button>
+  </div>
+
+  <!-- Hidden search bar -->
+  <input
+    type="text"
+    id="dueSearch"
+    class="due-search"
+    placeholder="Search Tag / Unit / Status..."
+    onkeyup="filterDueTable()"
+  />
+
+  <!-- Table -->
+  <table class="summary-table">
+    <thead>
+      <tr>
         <th>Tag No</th>
         <th>Unit</th>
         <th>Set Pressure</th>
@@ -156,10 +175,13 @@
         <th>Next Inspection</th>
         <th>Status</th>
       </tr>
-      </thead>
-      <tbody id="dueTable"></tbody>
-    </table>
-  </div>
+    </thead>
+
+    <tbody id="dueTable"></tbody>
+  </table>
+
+</div>
+
 
 </section>
 
