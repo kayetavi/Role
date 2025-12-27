@@ -145,7 +145,14 @@
 <div class="card full-width">
   <h3 class="due-header">
     Due & Overdue PSV
+
+    <button class="filter-toggle-btn"
+            onclick="toggleDueFilters()"
+            title="Show / Hide Filters">
+      🔍
+    </button>
   </h3>
+
 
   <table class="summary-table" id="dueTableMain">
 
@@ -161,7 +168,8 @@
       </tr>
 
       <!-- 🔍 FILTER ROW -->
-      <tr class="filter-row">
+      <tr class="filter-row" id="dueFilterRow">
+
         <th><input type="text" placeholder="Filter" onkeyup="filterDueTable()" data-col="0"></th>
         <th><input type="text" placeholder="Filter" onkeyup="filterDueTable()" data-col="1"></th>
         <th><input type="text" placeholder="Filter" onkeyup="filterDueTable()" data-col="2"></th>
