@@ -129,10 +129,12 @@ function toggleDueFilters() {
     return;
   }
 
-  row.style.display =
-    row.style.display === "none" ? "table-row" : "none";
+  if (row.style.display === "none" || row.style.display === "") {
+    row.style.display = "table-row";
+  } else {
+    row.style.display = "none";
+  }
 }
-
 
 
 /* =====================
