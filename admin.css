@@ -16,7 +16,9 @@ body {
 .main-header {
   background: #0f172a;
   color: white;
-  padding: 6px 16px;
+
+  height: 48px;          /* 👈 FIXED HEIGHT */
+  padding: 0 16px;      /* 👈 vertical padding hata diya */
 
   display: flex;
   align-items: center;
@@ -30,6 +32,7 @@ body {
 
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
+
 
 .header-left {
   width: 60px;
@@ -62,14 +65,12 @@ body {
 main {
   padding: 20px 30px;
 
-  margin-top: 44px;      /* header actual height */
-  margin-bottom: 26px;   /* footer actual height */
+  margin-top: 48px;      /* 👈 header height */
+  margin-bottom: 26px;   /* 👈 footer height */
 
- height: calc(100vh - 44px - 26px);  /* 👈 exact formula */
+  height: calc(100vh - 48px - 26px);
   overflow-y: auto;
 }
-
-
 
 h2 {
   margin-top: 30px;
