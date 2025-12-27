@@ -118,6 +118,14 @@ function filterDueTable() {
   });
 }
 
+function toggleDueFilters() {
+  const row = document.getElementById("dueFilterRow");
+  if (!row) return;
+
+  row.style.display =
+    row.style.display === "none" ? "table-row" : "none";
+}
+
 
 
 /* =====================
