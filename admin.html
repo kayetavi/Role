@@ -142,31 +142,15 @@
 
   </div>
 
- <!-- DUE & OVERDUE TABLE -->
 <div class="card full-width">
+  <h3 class="due-header">
+    Due & Overdue PSV
+  </h3>
 
-  <!-- Header row -->
-  <div class="table-header">
-    <h3>Due & Overdue PSV</h3>
+  <table class="summary-table" id="dueTableMain">
 
-    <!-- search toggle icon -->
-    <button class="search-toggle" onclick="toggleDueSearch()" title="Search">
-      🔍
-    </button>
-  </div>
-
-  <!-- Hidden search bar -->
-  <input
-    type="text"
-    id="dueSearch"
-    class="due-search"
-    placeholder="Search Tag / Unit / Status..."
-    onkeyup="filterDueTable()"
-  />
-
-  <!-- Table -->
-  <table class="summary-table">
     <thead>
+      <!-- COLUMN HEADERS -->
       <tr>
         <th>Tag No</th>
         <th>Unit</th>
@@ -175,12 +159,29 @@
         <th>Next Inspection</th>
         <th>Status</th>
       </tr>
+
+      <!-- 🔍 FILTER ROW -->
+      <tr class="filter-row">
+        <th><input type="text" placeholder="Filter" onkeyup="filterDueTable()" data-col="0"></th>
+        <th><input type="text" placeholder="Filter" onkeyup="filterDueTable()" data-col="1"></th>
+        <th><input type="text" placeholder="Filter" onkeyup="filterDueTable()" data-col="2"></th>
+        <th><input type="date" onchange="filterDueTable()" data-col="3"></th>
+        <th><input type="date" onchange="filterDueTable()" data-col="4"></th>
+        <th>
+          <select onchange="filterDueTable()" data-col="5">
+            <option value="">All</option>
+            <option value="Due">Due</option>
+            <option value="Overdue">Overdue</option>
+          </select>
+        </th>
+      </tr>
     </thead>
 
     <tbody id="dueTable"></tbody>
-  </table>
 
+  </table>
 </div>
+
 
 
 </section>
