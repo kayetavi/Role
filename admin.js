@@ -647,23 +647,23 @@ dueTable.innerHTML = "";
 data.forEach(psv => {
   if (!psv.tag_no) return;
 
-  const status = psv.inspection_status; // OK / Due / Overdue
+  const status = psv.inspection_status;
 
-  // Sirf Due & Overdue dikhana
   if (status !== "Due" && status !== "Overdue") return;
 
-  // 🔔 Alerts list
+  // 🔔 Alerts
   alertList.innerHTML += `
     <li>⚠️ ${psv.tag_no} (${status})</li>
   `;
 
-  // 📋 Due / Overdue Table
+  // 📋 Customized Due & Overdue Table
   dueTable.innerHTML += `
     <tr>
       <td>${psv.tag_no}</td>
       <td>${psv.unit || "-"}</td>
       <td>${psv.set_pressure || "-"}</td>
-      <td>${psv.service || "-"}</td>
+      <td>${psv.last_inspection_date || "-"}</td>
+      <td>${psv.next_inspection_date || "-"}</td>
       <td>
         <span class="badge ${status === "Overdue" ? "overdue" : "due"}">
           ${status}
