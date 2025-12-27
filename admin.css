@@ -436,6 +436,27 @@ button {
 }
 
 
+/* Due header with right-side icon */
+.due-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Binocular button */
+.filter-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 6px;
+}
+
+.filter-toggle-btn:hover {
+  color: #2563eb;
+}
+
+
 
 /* Status badges */
 .badge {
